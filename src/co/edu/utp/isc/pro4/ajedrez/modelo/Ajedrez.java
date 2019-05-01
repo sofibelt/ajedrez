@@ -75,19 +75,7 @@ public class Ajedrez {
     }
 
     private boolean validarJaqueMate() {
-        int rival = (turno == 0 ? 1 : 0);
-        Casilla casilla;
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 8; j++){
-                casilla=tablero.getCasilla(i,j);
-                if(casilla.getFicha() instanceof Rey
-                        && casilla.getFicha().getColor().equals(jugadores[rival].getColor())){
-                    Rey r = (Rey)casilla.getFicha();
-                     return !r.getEstado();    
-                  //System.out.print("he encontrado al rey");  
-                }   
-            }
-        }
+        //TODO: hacer jaquemate
         return false;
     }
 
@@ -142,9 +130,13 @@ public class Ajedrez {
         }
     }
     
-    public Casilla Posicion(String casilla){
-        Casilla c =tablero.getCasilla(casilla);
-        return c;
+    public void moverFicha(String primeraPosicion,String segundaPosicion){
+        Casilla casillaInicial = tablero.getCasilla(primeraPosicion);
+        Casilla casillaFinal = tablero.getCasilla(segundaPosicion);
+        Ficha ficha = casillaInicial.getFicha();
+        
+        ficha.mover(casillaInicial,casillaFinal);
+            
     }
     
 }

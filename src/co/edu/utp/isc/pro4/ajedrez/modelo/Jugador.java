@@ -35,22 +35,7 @@ public class Jugador {
          posicionFinal = scanIn.nextLine();
          
          //MOVER A AJEDREZ,RESTRICCIONES A CADA UNA DE LAS FICHAS
-         Casilla casillaInicial = ajedrez.Posicion(posicionInicial);
-         Casilla casillaFinal = ajedrez.Posicion(posicionFinal);
-                
-         Ficha ficha = casillaInicial.getFicha();
-             
-             if(casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor().equals(color))
-                &&(casillaFinal.getFicha().getColor()!=color)
-                     ){
-                ficha.comer(casillaInicial,casillaFinal);
-             }else{
-                if(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor().equals(color))){
-                    ficha.mover(casillaInicial,casillaFinal);
-                }
-             }
-         
-                   
+         ajedrez.moverFicha(posicionInicial,posicionFinal);        
     }
 
     public void setAjedrez(Ajedrez ajedrez) {
