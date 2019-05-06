@@ -18,26 +18,41 @@ public class Peon extends Ficha {
     }
 
     @Override
-    public void mover(Casilla casillaInicial,Casilla casillaFinal) {
+    public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
         
-            if(((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))||
-               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))||
-               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+2==casillaFinal.getFila()))||
+            if(((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
                ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada())    
-                    ){            
-                    setCasilla(casillaFinal);
-                    casillaFinal.setFicha(this);
-                    inicio=false;
-                }else if(((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))||
+                    ){
+                    if(casillaInicial.getFicha().getColor().equals(color)){
+                            int i=0,libre=0;
+                           while((camino[i]!=null)&&(i<camino.length)){   
+                               if(!camino[i].isOcupada()){                            
+                                    libre++;
+                                }
+                                i++; 
+                            }
+                            if(libre==i){
+                                setCasilla(casillaFinal); 
+                                casillaFinal.setFicha(this);
+                                inicio=false;  
+                           }else{
+                               System.out.println("hay una ficha en medio"); 
+                            }  
+                    }
+                }else if(((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
                         ((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada())    
                         ){  
-                            setCasilla(casillaFinal);
-                            casillaFinal.setFicha(this);     
-                        }else if(casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor().equals(getColor()))
-                                &&(casillaFinal.getFicha().getColor()!=getColor())
+                            if(casillaInicial.getFicha().getColor().equals(color)){
+                                    setCasilla(casillaFinal);
+                                    casillaFinal.setFicha(this);  
+                            }   
+                        }else if(casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor().equals(color))
+                                &&(casillaFinal.getFicha().getColor()!=color)
                                 ){
                                     if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())==1&&Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==1){  
-                                         comer(casillaInicial,casillaFinal); 
+                                        comer(casillaInicial,casillaFinal); 
                                     }
                                 }else{
                                     System.out.println("no se pudo mover");
@@ -54,11 +69,12 @@ public class Peon extends Ficha {
 
     @Override
     public void comer(Casilla casillaInicial,Casilla casillaFinal) {
-        System.out.println("SIGUE COMIENDO");
+               Casilla nuevaCasilla = null;
                setCasilla(casillaFinal);
                Ficha fichaAnterior=casillaFinal.getFicha();
-               fichaAnterior.cambiarEstado(false);
+               fichaAnterior.setCasilla(nuevaCasilla);
                casillaFinal.setFicha(this);
+             
               
     }
 }

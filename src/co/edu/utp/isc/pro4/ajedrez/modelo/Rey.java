@@ -16,7 +16,7 @@ public class Rey extends Ficha {
     }
 
     @Override
-    public void mover(Casilla casillaInicial,Casilla casillaFinal) {
+    public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
      if((casillaFinal.getColumna()==casillaInicial.getColumna())||
           (casillaFinal.getFila()==casillaInicial.getFila())||
           Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())+Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==2){
@@ -41,7 +41,7 @@ public class Rey extends Ficha {
           Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())+Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==2){
                setCasilla(casillaFinal);
                Ficha fichaAnterior=casillaFinal.getFicha();
-               fichaAnterior.cambiarEstado(false);
+              
                casillaFinal.setFicha(this);
         }else{
                 System.out.println("no pudo comer");

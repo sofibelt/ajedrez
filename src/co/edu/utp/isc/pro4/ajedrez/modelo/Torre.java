@@ -16,7 +16,7 @@ public class Torre extends Ficha {
     }
 
     @Override
-    public void mover(Casilla casillaInicial,Casilla casillaFinal) {
+    public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
         if((casillaFinal.getColumna()==casillaInicial.getColumna())||
           (casillaFinal.getFila()==casillaInicial.getFila())){
             setCasilla(casillaFinal);
@@ -40,7 +40,7 @@ public class Torre extends Ficha {
           (casillaFinal.getFila()==casillaInicial.getFila())){
             setCasilla(casillaFinal);
             Ficha fichaAnterior=casillaFinal.getFicha();
-            fichaAnterior.cambiarEstado(false);
+            
             casillaFinal.setFicha(this);
         }else{
                 System.out.println("no pudo comer");

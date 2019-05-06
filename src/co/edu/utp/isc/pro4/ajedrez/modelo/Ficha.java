@@ -12,15 +12,13 @@ package co.edu.utp.isc.pro4.ajedrez.modelo;
 public abstract class Ficha {
 
     private Casilla casilla;
-    private final Color color;
-    private boolean estado;
+    final Color color;
 
     public Ficha(Color color) {
         this.color = color;
-        this.estado=true;
     }
 
-    public abstract void mover(Casilla casillaInicial,Casilla casillaFinal);
+    public abstract void mover(Casilla casillaInicial,Casilla casillaFinal, Casilla camino[],Color color);
 
     public abstract void comer(Casilla casillaInicial,Casilla casillaFinal);
 
@@ -55,12 +53,6 @@ public abstract class Ficha {
         return tipo + (getColor() == Color.BLANCO ? "B" : "N");
     }
     
-    public void cambiarEstado(boolean estado ){
-        this.estado = estado;
-    }
-    
-    public boolean getEstado(){
-        return estado;
-    }
+  
 
 }

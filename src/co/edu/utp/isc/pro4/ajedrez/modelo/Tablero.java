@@ -35,5 +35,77 @@ public class Tablero {
         int fila = Integer.valueOf(posicion.substring(1)) - 1;
         return getCasilla(fila, columna);
     }
+    
+    public Casilla[] getCamino(Casilla primeraPosicion, Casilla segundaPosicion){
+        Casilla[] posicion = new Casilla[6];
+        int i;
+        if(primeraPosicion.getFila()==segundaPosicion.getFila()){   
+           i=1;
+            if(primeraPosicion.getColumna()<segundaPosicion.getColumna()){
+                while(primeraPosicion.getColumna()+i!=segundaPosicion.getColumna()){
+                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()+i)+
+                            Integer.toString(primeraPosicion.getFila()));   
+                 i++;
+                }
+            }else{
+                while(primeraPosicion.getColumna()-i!=segundaPosicion.getColumna()){
+                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()-i)+
+                            Integer.toString(primeraPosicion.getFila()));   
+                 i++;
+                }
+            }  
+        }else if(primeraPosicion.getColumna()==segundaPosicion.getColumna()){      
+            i=1;
+            if(primeraPosicion.getFila()<segundaPosicion.getFila()){
+                while(primeraPosicion.getFila()+i!=segundaPosicion.getFila()){
+                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna())+
+                            Integer.toString(primeraPosicion.getFila()+i));   
+                 i++;
+                }
+            }else{
+                while(primeraPosicion.getFila()-i!=segundaPosicion.getFila()){
+                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna())+
+                            Integer.toString(primeraPosicion.getFila()-i));   
+                 i++;
+                }
+            }
+        }else{
+            i=1;
+            if((primeraPosicion.getFila()<segundaPosicion.getFila())&&
+                    (primeraPosicion.getColumna()<segundaPosicion.getColumna())){
+                while((primeraPosicion.getFila()+i!=segundaPosicion.getFila())&&
+                        (primeraPosicion.getColumna()+i!=segundaPosicion.getColumna())){
+                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()+i)+
+                            Integer.toString(primeraPosicion.getFila()+i));   
+                 i++;
+                }
+            }else if((primeraPosicion.getFila()>segundaPosicion.getFila())&&
+                    (primeraPosicion.getColumna()<segundaPosicion.getColumna())){
+                while((primeraPosicion.getFila()-i!=segundaPosicion.getFila())&&
+                        (primeraPosicion.getColumna()+i!=segundaPosicion.getColumna())){
+                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()+i)+
+                            Integer.toString(primeraPosicion.getFila()-i));   
+                 i++;
+                }
+            }else if((primeraPosicion.getFila()>segundaPosicion.getFila())&&
+                    (primeraPosicion.getColumna()>segundaPosicion.getColumna())){
+                while((primeraPosicion.getFila()-i!=segundaPosicion.getFila())&&
+                        (primeraPosicion.getColumna()-i!=segundaPosicion.getColumna())){
+                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()-i)+
+                            Integer.toString(primeraPosicion.getFila()-i));   
+                 i++;
+                }
+            }else if((primeraPosicion.getFila()<segundaPosicion.getFila())&&
+                    (primeraPosicion.getColumna()>segundaPosicion.getColumna())){
+                while((primeraPosicion.getFila()+i!=segundaPosicion.getFila())&&
+                        (primeraPosicion.getColumna()-i!=segundaPosicion.getColumna())){
+                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()-i)+
+                            Integer.toString(primeraPosicion.getFila()+i));   
+                 i++;
+                }
+            }
+        }  
+        return  posicion;
+    }
 
 }

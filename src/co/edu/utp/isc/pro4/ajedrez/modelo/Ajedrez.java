@@ -133,9 +133,10 @@ public class Ajedrez {
     public void moverFicha(String primeraPosicion,String segundaPosicion){
         Casilla casillaInicial = tablero.getCasilla(primeraPosicion);
         Casilla casillaFinal = tablero.getCasilla(segundaPosicion);
+        Casilla camino[] = tablero.getCamino(casillaInicial, casillaFinal);
         Ficha ficha = casillaInicial.getFicha();
         
-        ficha.mover(casillaInicial,casillaFinal);
+        ficha.mover(casillaInicial,casillaFinal,camino,jugadores[turno].getColor());
             
     }
     
