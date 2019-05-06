@@ -21,7 +21,7 @@ public class Alfil extends Ficha {
                 ){
                 if(casillaInicial.getFicha().getColor().equals(color)){
                      int i=0,libre=0;
-                        while((camino[i]!=null)&&(i<camino.length)){   
+                        while((i<camino.length)&&(camino[i]!=null)){   
                             if(!camino[i].isOcupada()){                            
                                 libre++;
                             }

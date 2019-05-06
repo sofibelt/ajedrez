@@ -19,8 +19,16 @@ public class Caballo extends Ficha {
     public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
         if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())
               + Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==3){
-            setCasilla(casillaFinal);
-            casillaFinal.setFicha(this);
+            if(casillaInicial.getFicha().getColor().equals(color)){
+                if(casillaFinal.isOcupada()){
+                    if(casillaFinal.getFicha().getColor()!=color){
+                        comer(casillaInicial,casillaFinal);  
+                    }
+                }else{
+                    setCasilla(casillaFinal);
+                    casillaFinal.setFicha(this);
+                }
+            }
         }else{
                 System.out.println("no se pudo mover");
                 System.out.println("casilla donde intento moverse: "+casillaInicial.getColumna()+casillaInicial.getFila());
@@ -34,22 +42,11 @@ public class Caballo extends Ficha {
 
     @Override
     public void comer(Casilla casillaInicial,Casilla casillaFinal) {
-       if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())
-              + Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==3){
-           setCasilla(casillaFinal);
-           Ficha fichaAnterior=casillaFinal.getFicha();
-           
-           casillaFinal.setFicha(this);
-       }else{
-                System.out.println("no pudo comer");
-                System.out.println("casilla donde intento moverse: "+casillaInicial.getColumna()+casillaInicial.getFila());
-                System.out.println("casilla donde intento moverse: "+casillaFinal.getColumna()+casillaFinal.getFila());
-            }
-       
-       if(casillaFinal.getFicha()==this){
-                Ficha ficha=null;
-                casillaInicial.setFicha(ficha);   
-            }
+               Casilla nuevaCasilla = null;
+               setCasilla(casillaFinal);
+               Ficha fichaAnterior=casillaFinal.getFicha();
+               fichaAnterior.setCasilla(nuevaCasilla);
+               casillaFinal.setFicha(this);  
     }
     
 }

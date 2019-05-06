@@ -19,8 +19,27 @@ public class Torre extends Ficha {
     public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
         if((casillaFinal.getColumna()==casillaInicial.getColumna())||
           (casillaFinal.getFila()==casillaInicial.getFila())){
-            setCasilla(casillaFinal);
-            casillaFinal.setFicha(this); 
+            if(casillaInicial.getFicha().getColor().equals(color)){
+                int i=0,libre=0;
+                        while((i<camino.length)&&(camino[i]!=null)){   
+                            if(!camino[i].isOcupada()){                            
+                                libre++;
+                            }
+                              i++; 
+                        }
+                if(casillaFinal.isOcupada()){
+                    if(casillaFinal.getFicha().getColor()!=color){
+                            if(libre==i){
+                                comer(casillaInicial,casillaFinal);
+                            }
+                        }
+                }else{
+                    if(libre==i){
+                           setCasilla(casillaFinal); 
+                           casillaFinal.setFicha(this);
+                       }
+                }
+            }
         }else{
                 System.out.println("no se pudo mover");
                 System.out.println("casilla donde intento moverse: "+casillaInicial.getColumna()+casillaInicial.getFila());
@@ -36,21 +55,11 @@ public class Torre extends Ficha {
 
     @Override
     public void comer(Casilla casillaInicial,Casilla casillaFinal) {
-        if((casillaFinal.getColumna()==casillaInicial.getColumna())||
-          (casillaFinal.getFila()==casillaInicial.getFila())){
-            setCasilla(casillaFinal);
-            Ficha fichaAnterior=casillaFinal.getFicha();
-            
-            casillaFinal.setFicha(this);
-        }else{
-                System.out.println("no pudo comer");
-                System.out.println("casilla donde intento moverse: "+casillaInicial.getColumna()+casillaInicial.getFila());
-                System.out.println("casilla donde intento moverse: "+casillaFinal.getColumna()+casillaFinal.getFila());
-            }
-        if(casillaFinal.getFicha()==this){
-                Ficha ficha=null;
-                casillaInicial.setFicha(ficha);   
-            }
+               Casilla nuevaCasilla = null;
+               setCasilla(casillaFinal);
+               Ficha fichaAnterior=casillaFinal.getFicha();
+               fichaAnterior.setCasilla(nuevaCasilla);
+               casillaFinal.setFicha(this);
     }
     
 }
