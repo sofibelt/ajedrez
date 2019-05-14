@@ -107,5 +107,123 @@ public class Tablero {
         }  
         return  posicion;
     }
+    
+    public void jaque(Color color,Ficha ficha,Casilla casillaInicial,Casilla casillaFinal){
+        Casilla[] posicion = new Casilla[6];
+        boolean peligroDeJaque=false;
+        Casilla casilla = null;
+        int fila = 0,columna = 0,fichaFila=0,fichaColumna=0;
+        if(ficha instanceof Rey){
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {                
+                    if(getCasilla(i,j)==casillaFinal){
+                        fila=i;
+                        columna=j;
+                        casilla=getCasilla(i,j);
+                    }
+                    if(getCasilla(i,j)==casillaInicial){
+                        fichaFila=i;
+                        fichaColumna=j;
+                    }
+                }
+            }
+        }else{
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {                
+                    if(getCasilla(i,j).getFicha() instanceof Rey
+                            &&getCasilla(i,j).getFicha().getColor()==color
+                            ){
+                        fila=i;
+                        columna=j;
+                        casilla=getCasilla(i,j);
+                    }
+                    if(getCasilla(i,j)==casillaInicial){
+                        fichaFila=i;
+                        fichaColumna=j;
+                    }
+                }
+            }
+            
+        }
+        
+        int a=0,i=fila-1;
+       
+        while(i>=0){
+            if(getCasilla(i,columna).isOcupada()){
+                if(getCasilla(i,columna)!=getCasilla(fichaFila,fichaColumna)){
+                    if(getCasilla(i,columna).getFicha().getColor()!=color){
+                        System.out.println("ESTA EN ENEMIGO");
+                        System.out.println(getCasilla(i,columna));
+                        posicion[a]=getCasilla(i,columna);
+                        a++;
+                        break;
+                    }else{
+                        System.out.println("ESTA EN ALIADO");
+                        System.out.println(getCasilla(i,columna));
+                        break;
+                   }
+                }
+            }      
+            i--;
+        }
+        i=fila+1;
+        while(i<=7){
+            if(getCasilla(i,columna).isOcupada()){
+                if(getCasilla(i,columna)!=getCasilla(fichaFila,fichaColumna)){
+                    if(getCasilla(i,columna).getFicha().getColor()!=color){
+                        System.out.println("ESTA EN ENEMIGO");
+                        System.out.println(getCasilla(i,columna));
+                        posicion[a]=getCasilla(i,columna);
+                        a++;
+                        break;
+                    }else{
+                        System.out.println("ESTA EN ALIADO");
+                        System.out.println(getCasilla(i,columna));
+                        break;
+                   }
+                }
+            }      
+            i++;
+        }
+        i=columna-1;
+        while(i>=0){
+            if(getCasilla(fila,i).isOcupada()){
+                if(getCasilla(fila,i)!=getCasilla(fichaFila,fichaColumna)){
+                    if(getCasilla(fila,i).getFicha().getColor()!=color){
+                        System.out.println("ESTA EN ENEMIGO");
+                        System.out.println(getCasilla(fila,i));
+                        posicion[a]=getCasilla(fila,i);
+                        a++;
+                        break;
+                    }else{
+                        System.out.println("ESTA EN ALIADO");
+                        System.out.println(getCasilla(fila,i));
+                        break;
+                   }
+                }
+            }      
+            i++;
+        }
+        i=columna+1;
+        while(i<=7){
+            if(getCasilla(fila,i).isOcupada()){
+                if(getCasilla(fila,i)!=getCasilla(fichaFila,fichaColumna)){
+                    if(getCasilla(fila,i).getFicha().getColor()!=color){
+                        System.out.println("ESTA EN ENEMIGO");
+                        System.out.println(getCasilla(fila,i));
+                        posicion[a]=getCasilla(fila,i);
+                        a++;
+                        break;
+                    }else{
+                        System.out.println("ESTA EN ALIADO");
+                        System.out.println(getCasilla(fila,i));
+                        break;
+                   }
+                }
+            }      
+            i++;
+        }
+               
+    }
 
 }

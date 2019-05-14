@@ -16,7 +16,8 @@ public class Alfil extends Ficha {
     }
 
     @Override
-    public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+    public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+        boolean validarMovimiento=false;
         if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())==Math.abs(casillaFinal.getFila()-casillaInicial.getFila())
                 ){
                 if(casillaInicial.getFicha().getColor().equals(color)){
@@ -48,8 +49,10 @@ public class Alfil extends Ficha {
         
         if(casillaFinal.getFicha()==this){
                 Ficha ficha=null;
-                casillaInicial.setFicha(ficha);   
+                casillaInicial.setFicha(ficha);  
+                validarMovimiento=true;
             }
+        return validarMovimiento; 
     }
 
     @Override

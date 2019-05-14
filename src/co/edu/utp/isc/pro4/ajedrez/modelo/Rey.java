@@ -16,10 +16,15 @@ public class Rey extends Ficha {
     }
 
     @Override
-    public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
-     if((casillaFinal.getColumna()==casillaInicial.getColumna())||
-          (casillaFinal.getFila()==casillaInicial.getFila())||
-          Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())+Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==2){
+    public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+        boolean validarMovimiento=false;
+     if(((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaFinal.getFila()==casillaInicial.getFila()+1))||
+        ((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaFinal.getFila()==casillaInicial.getFila()-1))||
+        ((casillaFinal.getFila()==casillaInicial.getFila())&&(casillaFinal.getColumna()==(char)casillaInicial.getColumna()+1))||
+        ((casillaFinal.getFila()==casillaInicial.getFila())&&(casillaFinal.getColumna()==(char)casillaInicial.getColumna()-1))||
+        ((casillaFinal.getFila()!=casillaInicial.getFila()&&casillaFinal.getColumna()!=casillaInicial.getColumna())
+             &&Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())+Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==2))
+     {
          if(casillaInicial.getFicha().getColor().equals(color)){
              if(casillaFinal.isOcupada()){
                   if(casillaFinal.getFicha().getColor()!=color){
@@ -38,8 +43,10 @@ public class Rey extends Ficha {
      
      if(casillaFinal.getFicha()==this){
                 Ficha ficha=null;
-                casillaInicial.setFicha(ficha);   
+                casillaInicial.setFicha(ficha); 
+                validarMovimiento=true;
             }
+     return validarMovimiento;  
     }
 
     @Override

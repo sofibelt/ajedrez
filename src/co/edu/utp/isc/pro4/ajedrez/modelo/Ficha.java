@@ -18,7 +18,7 @@ public abstract class Ficha {
         this.color = color;
     }
 
-    public abstract void mover(Casilla casillaInicial,Casilla casillaFinal, Casilla camino[],Color color);
+    public abstract boolean mover(Casilla casillaInicial,Casilla casillaFinal, Casilla camino[],Color color);
 
     public abstract void comer(Casilla casillaInicial,Casilla casillaFinal);
 

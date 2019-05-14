@@ -42,7 +42,7 @@ public class Ajedrez {
 
         cronometro.iniciar();
         do {
-            jugadores[turno].jugar();
+            boolean validarMovimiento= jugadores[turno].jugar();
             mostrarTablero();
             // Validar si hay Jaque Mate y terminar
             if (terminado) {
@@ -54,9 +54,12 @@ public class Ajedrez {
             } else if (validarTablas()) {
                 break;
             }
-            // Sino, cambiar turno
-            cambioTurno();
-
+            // Sino, cambiar turno, solo si se pudo hacer una jugada
+            if(validarMovimiento){
+                cambioTurno();
+            }else{
+                System.out.println("intente nuevamente");
+            }
         } while (!terminado);
         cronometro.parar();
 
@@ -130,14 +133,15 @@ public class Ajedrez {
         }
     }
     
-    public void moverFicha(String primeraPosicion,String segundaPosicion){
+    public boolean moverFicha(String primeraPosicion,String segundaPosicion){
         Casilla casillaInicial = tablero.getCasilla(primeraPosicion);
         Casilla casillaFinal = tablero.getCasilla(segundaPosicion);
         Casilla camino[] = tablero.getCamino(casillaInicial, casillaFinal);
         Ficha ficha = casillaInicial.getFicha();
+        tablero.jaque(jugadores[turno].getColor(),ficha,casillaInicial,casillaFinal);
+        boolean validarMovimiento = ficha.mover(casillaInicial,casillaFinal,camino,jugadores[turno].getColor());
         
-        ficha.mover(casillaInicial,casillaFinal,camino,jugadores[turno].getColor());
-            
+        return validarMovimiento;  
     }
     
 }

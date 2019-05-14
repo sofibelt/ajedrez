@@ -16,9 +16,13 @@ public class Reina extends Ficha {
     }
 
     @Override
-    public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
-       if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())
-              + Math.abs(casillaFinal.getFila()-casillaInicial.getFila())!=3){
+    public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+       boolean validarMovimiento=false;
+        if(
+          (casillaFinal.getColumna()==casillaInicial.getColumna())||
+          (casillaFinal.getFila()==casillaInicial.getFila())||
+          Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())==Math.abs(casillaFinal.getFila()-casillaInicial.getFila())     
+               ){
            if(casillaInicial.getFicha().getColor().equals(color)){
                int i=0,libre=0;
                         while((i<camino.length)&&(camino[i]!=null)){   
@@ -47,8 +51,10 @@ public class Reina extends Ficha {
             }
        if(casillaFinal.getFicha()==this){
                 Ficha ficha=null;
-                casillaInicial.setFicha(ficha);   
+                casillaInicial.setFicha(ficha);  
+                validarMovimiento=true;
             }
+       return validarMovimiento; 
     }
 
     @Override

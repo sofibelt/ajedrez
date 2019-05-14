@@ -18,8 +18,8 @@ public class Peon extends Ficha {
     }
 
     @Override
-    public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
-        
+    public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+        boolean validarMovimiento=false;
             if(((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
                ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
                ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
@@ -62,9 +62,10 @@ public class Peon extends Ficha {
             
             if(casillaFinal.getFicha()==this){
                 Ficha ficha=null;
-                casillaInicial.setFicha(ficha);  
+                casillaInicial.setFicha(ficha); 
+                validarMovimiento=true;
             }
-        
+     return validarMovimiento;   
     }
 
     @Override

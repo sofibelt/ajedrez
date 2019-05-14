@@ -23,7 +23,7 @@ public class Jugador {
 
     }
 
-    public void jugar() {
+    public boolean jugar() {
         Scanner scanIn = new Scanner(System.in);
         System.out.println("Esta jugando: "+nombre+" su color es "+color);
          String posicionInicial = "";
@@ -35,7 +35,8 @@ public class Jugador {
          posicionFinal = scanIn.nextLine();
          
          //MOVER A AJEDREZ,RESTRICCIONES A CADA UNA DE LAS FICHAS
-         ajedrez.moverFicha(posicionInicial,posicionFinal);        
+         boolean validarMovimiento= ajedrez.moverFicha(posicionInicial,posicionFinal); 
+         return validarMovimiento;
     }
 
     public void setAjedrez(Ajedrez ajedrez) {

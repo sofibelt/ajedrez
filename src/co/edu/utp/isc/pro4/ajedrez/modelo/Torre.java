@@ -16,7 +16,8 @@ public class Torre extends Ficha {
     }
 
     @Override
-    public void mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+    public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+        boolean validarMovimiento=false;
         if((casillaFinal.getColumna()==casillaInicial.getColumna())||
           (casillaFinal.getFila()==casillaInicial.getFila())){
             if(casillaInicial.getFicha().getColor().equals(color)){
@@ -48,9 +49,10 @@ public class Torre extends Ficha {
         
         if(casillaFinal.getFicha()==this){
                 Ficha ficha=null;
-                casillaInicial.setFicha(ficha);   
+                casillaInicial.setFicha(ficha); 
+                validarMovimiento=true;
             }
-        
+        return validarMovimiento;
     }
 
     @Override
