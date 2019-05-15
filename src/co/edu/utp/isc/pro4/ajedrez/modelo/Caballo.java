@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
+import java.awt.GradientPaint;
 import java.lang.Math;
+
+import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
 /**
  *
  * @author utp
@@ -50,6 +55,33 @@ public class Caballo extends Ficha {
                Ficha fichaAnterior=casillaFinal.getFicha();
                fichaAnterior.setCasilla(nuevaCasilla);
                casillaFinal.setFicha(this);  
+    }
+    
+    @Override
+    public void draw(Graphics2D g, float x, float y) {
+        GeneralPath polyline = new GeneralPath(GeneralPath.WIND_EVEN_ODD, 11);
+        polyline.moveTo(x + 30, y + 33);
+        polyline.lineTo(x + 15, y + 35);
+        polyline.lineTo(x + 10, y + 30);
+        polyline.lineTo(x + 20, y + 20);
+        polyline.lineTo(x + 25, y + 10);
+        polyline.lineTo(x + 35, y + 10);
+        polyline.lineTo(x + 40, y + 20);
+        polyline.lineTo(x + 45, y + 30);
+        polyline.lineTo(x + 45, y + 45);
+        polyline.lineTo(x + 15, y + 45);
+        polyline.lineTo(x + 30, y + 33);
+        
+        // 50x50 dibujar la ficha
+        g.setPaint(new GradientPaint(x, y,
+                getColor() == Color.BLANCO ? java.awt.Color.CYAN : java.awt.Color.BLACK,
+                x + 50, y + 50,
+                java.awt.Color.WHITE));
+       g.fill(polyline);
+       g.setColor(java.awt.Color.BLACK);
+       g.draw(polyline);
+       
+       
     }
     
 }

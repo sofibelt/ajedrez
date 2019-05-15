@@ -5,11 +5,15 @@
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
+import co.edu.utp.isc.pro4.ajedrez.ui.PnlTablero;
+
 /**
  *
  * @author utp: odau
  */
 public class Ajedrez {
+    
+    private PnlTablero pnlTablero;
 
     private Jugador[] jugadores;
     private Tablero tablero;
@@ -32,44 +36,22 @@ public class Ajedrez {
         this.jugadores[1] = jugador2;
     }
     
+    public void setPnlTablero(PnlTablero pnlTablero) {
+        this.pnlTablero = pnlTablero;
+        pnlTablero.setTablero(tablero);
+    }
+    
 
     public void jugar() {
         jugadores[0].setAjedrez(this);
         jugadores[1].setAjedrez(this);
 
         ubicarFichasTablero();
-        mostrarTablero();
-
         cronometro.iniciar();
-        do {
-            boolean validarMovimiento= jugadores[turno].jugar();
-            mostrarTablero();
-            // Validar si hay Jaque Mate y terminar
-            if (terminado) {
-                turno = (turno == 0 ? 1 : 0);
-                break;
-            } else if (validarJaqueMate()) {
-                terminado = true;
-                break;
-            } else if (validarTablas()) {
-                break;
-            }
-            // Sino, cambiar turno, solo si se pudo hacer una jugada
-            if(validarMovimiento){
-                cambioTurno();
-            }else{
-                System.out.println("intente nuevamente");
-            }
-        } while (!terminado);
-        cronometro.parar();
-
-        //TODO: Cambiarlo de lugar
-        if (terminado) {
-            System.out.println("El Jugador "
-                    + jugadores[turno].getNombre() + " ha ganado");
-        } else {
-            System.out.println("Los jugadores han quedado en tablas");
-        }
+        mostrarTablero();
+        // LO QUE HACE JUGAR ES INICIALIZA TABLERO
+         //EL RESTO DE LAS JUGADAS SON DESDE MOVER FICHA
+  
     }
 
     public void cambioTurno() {
@@ -123,6 +105,8 @@ public class Ajedrez {
     }
 
     private void mostrarTablero() {
+         pnlTablero.updateUI();
+        /*
         System.out.println("  \tA \tB \tC \tD \tE \tF \tG \tH");
         for (int i = 0; i < 8; i++) {
             System.out.print((i + 1));
@@ -131,17 +115,51 @@ public class Ajedrez {
             }
             System.out.println();
         }
+                */
+        
+    }
+    public Jugador getJugador(){
+        return jugadores[turno];
     }
     
-    public boolean moverFicha(String primeraPosicion,String segundaPosicion){
+    public void moverFicha(String primeraPosicion,String segundaPosicion){
         Casilla casillaInicial = tablero.getCasilla(primeraPosicion);
         Casilla casillaFinal = tablero.getCasilla(segundaPosicion);
+        
         Casilla camino[] = tablero.getCamino(casillaInicial, casillaFinal);
         Ficha ficha = casillaInicial.getFicha();
         tablero.jaque(jugadores[turno].getColor(),ficha,casillaInicial,casillaFinal);
         boolean validarMovimiento = ficha.mover(casillaInicial,casillaFinal,camino,jugadores[turno].getColor());
-        
-        return validarMovimiento;  
+        mostrarTablero(); 
+        /*
+          // Validar si hay Jaque Mate y terminar
+            if (terminado) {
+                turno = (turno == 0 ? 1 : 0);
+                
+            } else if (validarJaqueMate()) {
+                terminado = true;
+                
+            } else if (validarTablas()) {
+               terminado = true;
+            }
+        */
+            // Sino, cambiar turno, solo si se pudo hacer una jugada
+            if(validarMovimiento){
+                cambioTurno();
+            }else{
+                System.out.println("intente nuevamente");
+            }
+        /*
+        cronometro.parar();
+
+        //TODO: Cambiarlo de lugar
+        if (terminado) {
+            System.out.println("El Jugador "
+                    + jugadores[turno].getNombre() + " ha ganado");
+        } else {
+            System.out.println("Los jugadores han quedado en tablas");
+        }
+         */    
     }
     
 }

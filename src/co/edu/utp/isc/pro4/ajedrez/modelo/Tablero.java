@@ -1,4 +1,4 @@
-/*
+  /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -109,7 +109,6 @@ public class Tablero {
     }
     
     public void jaque(Color color,Ficha ficha,Casilla casillaInicial,Casilla casillaFinal){
-        Casilla[] posicion = new Casilla[6];
         boolean peligroDeJaque=false;
         Casilla casilla = null;
         int fila = 0,columna = 0,fichaFila=0,fichaColumna=0;
@@ -146,84 +145,20 @@ public class Tablero {
             
         }
         
-        int a=0,i=fila-1;
-       
-        while(i>=0){
-            if(getCasilla(i,columna).isOcupada()){
-                if(getCasilla(i,columna)!=getCasilla(fichaFila,fichaColumna)){
-                    if(getCasilla(i,columna).getFicha().getColor()!=color){
-                        System.out.println("ESTA EN ENEMIGO");
-                        System.out.println(getCasilla(i,columna));
-                        posicion[a]=getCasilla(i,columna);
-                        a++;
-                        break;
-                    }else{
-                        System.out.println("ESTA EN ALIADO");
-                        System.out.println(getCasilla(i,columna));
-                        break;
-                   }
+        for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {   
+                    if(getCasilla(i,j).isOcupada()){
+                     if(getCasilla(i,j).getFicha().getColor()!=color){
+                           if(getCasilla(i,j).getFicha() instanceof Peon){
+                               if(getCasilla(i,j)==casillaInicial){
+                                   getCasilla(i,j);
+                               }
+                           }
+                        }   
+                    }
                 }
-            }      
-            i--;
-        }
-        i=fila+1;
-        while(i<=7){
-            if(getCasilla(i,columna).isOcupada()){
-                if(getCasilla(i,columna)!=getCasilla(fichaFila,fichaColumna)){
-                    if(getCasilla(i,columna).getFicha().getColor()!=color){
-                        System.out.println("ESTA EN ENEMIGO");
-                        System.out.println(getCasilla(i,columna));
-                        posicion[a]=getCasilla(i,columna);
-                        a++;
-                        break;
-                    }else{
-                        System.out.println("ESTA EN ALIADO");
-                        System.out.println(getCasilla(i,columna));
-                        break;
-                   }
-                }
-            }      
-            i++;
-        }
-        i=columna-1;
-        while(i>=0){
-            if(getCasilla(fila,i).isOcupada()){
-                if(getCasilla(fila,i)!=getCasilla(fichaFila,fichaColumna)){
-                    if(getCasilla(fila,i).getFicha().getColor()!=color){
-                        System.out.println("ESTA EN ENEMIGO");
-                        System.out.println(getCasilla(fila,i));
-                        posicion[a]=getCasilla(fila,i);
-                        a++;
-                        break;
-                    }else{
-                        System.out.println("ESTA EN ALIADO");
-                        System.out.println(getCasilla(fila,i));
-                        break;
-                   }
-                }
-            }      
-            i++;
-        }
-        i=columna+1;
-        while(i<=7){
-            if(getCasilla(fila,i).isOcupada()){
-                if(getCasilla(fila,i)!=getCasilla(fichaFila,fichaColumna)){
-                    if(getCasilla(fila,i).getFicha().getColor()!=color){
-                        System.out.println("ESTA EN ENEMIGO");
-                        System.out.println(getCasilla(fila,i));
-                        posicion[a]=getCasilla(fila,i);
-                        a++;
-                        break;
-                    }else{
-                        System.out.println("ESTA EN ALIADO");
-                        System.out.println(getCasilla(fila,i));
-                        break;
-                   }
-                }
-            }      
-            i++;
-        }
-               
+            } 
+                
     }
 
 }

@@ -5,11 +5,12 @@
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
+import controlador.Dibujable;
 /**
  *
  * @author utp
  */
-public abstract class Ficha {
+public abstract class Ficha extends Dibujable {
 
     private Casilla casilla;
     final Color color;

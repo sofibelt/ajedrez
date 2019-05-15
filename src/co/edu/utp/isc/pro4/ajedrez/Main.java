@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.utp.isc.pro4.ajedrez;
+//package co.edu.utp.isc.pro4.ajedrez;
 
-import co.edu.utp.isc.pro4.ajedrez.modelo.Ajedrez;
-import co.edu.utp.isc.pro4.ajedrez.modelo.Color;
-import co.edu.utp.isc.pro4.ajedrez.modelo.Jugador;
+//import co.edu.utp.isc.pro4.ajedrez.modelo.Ajedrez;
+//import co.edu.utp.isc.pro4.ajedrez.modelo.Color;
+//import co.edu.utp.isc.pro4.ajedrez.modelo.Jugador;
 
 /**
  *
  * @author utp
  */
 public class Main {
-
+/*
     public static void main(String[] args) {
         Ajedrez juego = new Ajedrez(
                 new Jugador("Cesar",Color.BLANCO),
@@ -22,4 +22,5 @@ public class Main {
         juego.jugar();
         
     }
+    */
 }

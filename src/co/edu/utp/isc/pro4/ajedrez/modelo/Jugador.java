@@ -23,20 +23,8 @@ public class Jugador {
 
     }
 
-    public boolean jugar() {
-        Scanner scanIn = new Scanner(System.in);
-        System.out.println("Esta jugando: "+nombre+" su color es "+color);
-         String posicionInicial = "";
-         System.out.print("de donde quiere mover la ficha: ");
-         posicionInicial = scanIn.nextLine();
-         
-         String posicionFinal = "";
-         System.out.print("a donde quiere mover la ficha: ");
-         posicionFinal = scanIn.nextLine();
-         
-         //MOVER A AJEDREZ,RESTRICCIONES A CADA UNA DE LAS FICHAS
-         boolean validarMovimiento= ajedrez.moverFicha(posicionInicial,posicionFinal); 
-         return validarMovimiento;
+    public void jugar(String posicionInicial, String posicionFinal) {  
+        ajedrez.moverFicha(posicionInicial,posicionFinal); 
     }
 
     public void setAjedrez(Ajedrez ajedrez) {

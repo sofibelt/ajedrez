@@ -5,6 +5,12 @@
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 import java.lang.Math;
+
+import java.awt.Graphics2D;
+import java.awt.GradientPaint;
+import java.awt.geom.GeneralPath;
+import java.awt.geom.Rectangle2D;
+
 /**
  *
  * @author utp
@@ -56,6 +62,41 @@ public class Rey extends Ficha {
                Ficha fichaAnterior=casillaFinal.getFicha();
                fichaAnterior.setCasilla(nuevaCasilla);
                casillaFinal.setFicha(this);
+    }
+    
+    @Override
+    public void draw(Graphics2D g, float x, float y) {
+        GeneralPath polyline = new GeneralPath(GeneralPath.WIND_EVEN_ODD, 6);
+        polyline.moveTo(x + 15, y + 15);
+        polyline.lineTo(x + 15, y + 15);
+        polyline.lineTo(x + 35, y + 15);
+        polyline.lineTo(x + 30, y + 25);
+        polyline.lineTo(x + 20, y + 25);
+        polyline.lineTo(x + 15, y + 15);
+    
+        // 50x50 dibujar la ficha
+        g.setPaint(new GradientPaint(x, y,
+                getColor() == Color.BLANCO ? java.awt.Color.CYAN : java.awt.Color.BLACK,
+                x + 50, y + 50,
+                java.awt.Color.WHITE));
+       
+        g.fill(new Rectangle2D.Float(x + 20, y + 25, 10, 18));
+        g.fill(new Rectangle2D.Float(x + 17, y + 43, 15, 3));     
+        g.fill(new Rectangle2D.Float(x + 15, y + 10, 19, 5)); 
+        g.fill(new Rectangle2D.Float(x + 23, y + 0, 1, 10));
+        g.fill(new Rectangle2D.Float(x + 19, y + 4, 10, 1));
+        g.draw(new Rectangle2D.Float(x + 23, y + 0, 1, 10));
+        g.draw(new Rectangle2D.Float(x + 19, y + 4, 10, 1));
+        g.fill(polyline);
+        g.setPaint(java.awt.Color.BLACK);
+        g.draw(new Rectangle2D.Float(x + 20, y + 25, 10, 18));
+        g.draw(new Rectangle2D.Float(x + 17, y + 43, 15, 3));
+        g.draw(new Rectangle2D.Float(x + 15, y + 10, 19, 5));
+        g.draw(polyline);
+        
+        
+        
+        
     }
 
 }
