@@ -168,16 +168,32 @@ public class Tablero {
         }
     }
     
-    public Casilla[] encontrarCaminoRey(Casilla rey, Tablero copia){
+    public Casilla[] encontrarCaminoRey(Casilla rey){
         Casilla[] casillas = new Casilla[8];
-          casillas[0]=copia.getCasilla(rey.getColumna()+Integer.toString(rey.getFila()+1));
-          casillas[1]=copia.getCasilla((char)(rey.getColumna()+1)+Integer.toString(rey.getFila()+1));
-          casillas[2]=copia.getCasilla((char)(rey.getColumna()+1)+Integer.toString(rey.getFila()));
-          casillas[3]=copia.getCasilla((char)(rey.getColumna()+1)+Integer.toString(rey.getFila()-1));
-          casillas[4]=copia.getCasilla(rey.getColumna()+Integer.toString(rey.getFila()-1));
-          casillas[5]=copia.getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()-1));
-          casillas[6]=copia.getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()));
-          casillas[7]=copia.getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()+1));
+        if(rey.getFila()+1<=8){
+          casillas[0]=getCasilla(rey.getColumna()+Integer.toString(rey.getFila()+1));
+        }
+        if(rey.getColumna()+1<='H'&&rey.getFila()+1<=8){
+          casillas[1]=getCasilla((char)(rey.getColumna()+1)+Integer.toString(rey.getFila()+1));
+        }
+        if(rey.getColumna()+1<='H'){
+          casillas[2]=getCasilla((char)(rey.getColumna()+1)+Integer.toString(rey.getFila()));
+        }
+        if(rey.getColumna()+1<='H'&&rey.getFila()-1>=1){
+          casillas[3]=getCasilla((char)(rey.getColumna()+1)+Integer.toString(rey.getFila()-1));
+        }
+        if(rey.getFila()-1>=1){
+          casillas[4]=getCasilla(rey.getColumna()+Integer.toString(rey.getFila()-1));
+        }
+        if(rey.getColumna()-1<='A'&&rey.getFila()-1>=1){
+          casillas[5]=getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()-1));
+        }
+        if(rey.getColumna()-1<='A'){
+          casillas[6]=getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()));
+        }
+        if(rey.getColumna()-1<='A'){
+          casillas[7]=getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()+1));
+        }
     return casillas;
     } 
 

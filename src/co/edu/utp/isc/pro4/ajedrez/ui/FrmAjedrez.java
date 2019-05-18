@@ -42,6 +42,10 @@ public class FrmAjedrez extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtNegras = new javax.swing.JTextField();
         btnJugar = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        TxtGano = new javax.swing.JTextField();
+        TxtPerdio = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         pnlTablero = new PnlTablero();
         jPanel4 = new javax.swing.JPanel();
@@ -63,6 +67,9 @@ public class FrmAjedrez extends javax.swing.JFrame {
         TxtNombre = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         TxtColor = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        TxtRendirse = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -84,6 +91,22 @@ public class FrmAjedrez extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Gano");
+
+        jLabel11.setText("Perdio");
+
+        TxtGano.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtGanoActionPerformed(evt);
+            }
+        });
+
+        TxtPerdio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtPerdioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -91,17 +114,30 @@ public class FrmAjedrez extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBlancas, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNegras))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnJugar)))
+                        .addComponent(btnJugar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtBlancas, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNegras)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TxtPerdio))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TxtGano, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 90, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -113,11 +149,15 @@ public class FrmAjedrez extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtBlancas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBlancas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(TxtGano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNegras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNegras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(TxtPerdio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnJugar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -223,21 +263,22 @@ public class FrmAjedrez extends javax.swing.JFrame {
         jLabel5.setText("Inicio");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.ipadx = 36;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(12, 22, 0, 0);
         jPanel7.add(jLabel5, gridBagConstraints);
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Fin");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 8;
         gridBagConstraints.ipadx = 45;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(12, 6, 0, 0);
         jPanel7.add(jLabel6, gridBagConstraints);
 
         txtInicio.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -248,11 +289,11 @@ public class FrmAjedrez extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 54;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 11, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(7, 22, 0, 0);
         jPanel7.add(txtInicio, gridBagConstraints);
 
         txtFin.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -262,11 +303,12 @@ public class FrmAjedrez extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 7;
         gridBagConstraints.ipadx = 53;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 6, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(7, 5, 0, 0);
         jPanel7.add(txtFin, gridBagConstraints);
 
         jButton1.setText("JUGAR");
@@ -277,12 +319,11 @@ public class FrmAjedrez extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridy = 7;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 18, 18, 25);
+        gridBagConstraints.insets = new java.awt.Insets(6, 17, 7, 0);
         jPanel7.add(jButton1, gridBagConstraints);
 
         jLabel7.setText("Jugador:");
@@ -293,7 +334,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
         gridBagConstraints.ipadx = 12;
         gridBagConstraints.ipady = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(17, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(30, 6, 0, 0);
         jPanel7.add(jLabel7, gridBagConstraints);
 
         TxtNombre.addActionListener(new java.awt.event.ActionListener() {
@@ -304,20 +345,20 @@ public class FrmAjedrez extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 114;
+        gridBagConstraints.ipadx = 71;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(16, 4, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(29, 4, 0, 0);
         jPanel7.add(TxtNombre, gridBagConstraints);
 
         jLabel8.setText("Color: ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.ipadx = 17;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(14, 10, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(10, 6, 0, 0);
         jPanel7.add(jLabel8, gridBagConstraints);
 
         TxtColor.addActionListener(new java.awt.event.ActionListener() {
@@ -327,13 +368,52 @@ public class FrmAjedrez extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 6;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 114;
+        gridBagConstraints.ipadx = 71;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 4, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(7, 4, 0, 0);
         jPanel7.add(TxtColor, gridBagConstraints);
+
+        jButton2.setText("Rendirse");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(28, 12, 0, 9);
+        jPanel7.add(jButton2, gridBagConstraints);
+
+        TxtRendirse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtRendirseActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 69;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 12, 0, 9);
+        jPanel7.add(TxtRendirse, gridBagConstraints);
+
+        jLabel9.setText("Se ha rendido");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 15;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.ipadx = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(11, 12, 0, 0);
+        jPanel7.add(jLabel9, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -402,11 +482,17 @@ public class FrmAjedrez extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (juego != null) {
+        if (juego != null&&juego.estadoDelJuego()) {
             String posicionInicial=txtInicio.getText();
             String posicionFinal=txtFin.getText();
             juego.getJugador().jugar(posicionInicial, posicionFinal);
         }
+        if(!juego.estadoDelJuego()){
+            TxtPerdio.setText( juego.getJugador().getNombre() );
+            juego.cambioTurno();
+            TxtGano.setText( juego.getJugador().getNombre() ); 
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void TxtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombreActionPerformed
@@ -416,6 +502,31 @@ public class FrmAjedrez extends javax.swing.JFrame {
     private void TxtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtColorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtColorActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if (juego != null) {
+            juego.rendirse();
+            TxtRendirse.setText(juego.getJugador().getNombre());
+        }
+        if(!juego.estadoDelJuego()){
+            TxtPerdio.setText( juego.getJugador().getNombre() );
+            juego.cambioTurno();
+            TxtGano.setText( juego.getJugador().getNombre() ); 
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void TxtRendirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRendirseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtRendirseActionPerformed
+
+    private void TxtGanoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtGanoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtGanoActionPerformed
+
+    private void TxtPerdioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtPerdioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtPerdioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -451,10 +562,16 @@ public class FrmAjedrez extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField TxtColor;
+    private javax.swing.JTextField TxtGano;
     private javax.swing.JTextField TxtNombre;
+    private javax.swing.JTextField TxtPerdio;
+    private javax.swing.JTextField TxtRendirse;
     private javax.swing.JButton btnJugar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -462,6 +579,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
