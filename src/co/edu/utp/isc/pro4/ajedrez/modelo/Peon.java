@@ -56,13 +56,27 @@ public class Peon extends Ficha {
                         }else if(casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor().equals(color))
                                 &&(casillaFinal.getFicha().getColor()!=color)
                                 ){
-                                    if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())==1&&Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==1){  
-                                        comer(casillaInicial,casillaFinal); 
-                                    }
+                            
+                                  if(casillaInicial.getFicha().getColor()==Color.BLANCO){
+                                    if((casillaInicial.getFila()+1==casillaFinal.getFila()&&
+                                        casillaInicial.getColumna()-1==casillaFinal.getColumna())||
+                                       (casillaInicial.getFila()+1==casillaFinal.getFila()&&
+                                        casillaInicial.getColumna()+1==casillaFinal.getColumna())){
+                                           comer(casillaInicial,casillaFinal); 
+                                       }  
+                                 }else{
+                                     if((casillaInicial.getFila()-1==casillaFinal.getFila()&&
+                                        casillaInicial.getColumna()+1==casillaFinal.getColumna())||
+                                       (casillaInicial.getFila()-1==casillaFinal.getFila()&&
+                                        casillaInicial.getColumna()-1==casillaFinal.getColumna())){
+                                          comer(casillaInicial,casillaFinal); 
+                                       }
+                                 }
+                                  
                                 }else{
                                     System.out.println("no se pudo mover");
-                                    System.out.println("casilla donde intento moverse: "+casillaInicial.getColumna()+casillaInicial.getFila());
-                                    System.out.println("casilla donde intento moverse: "+casillaFinal.getColumna()+casillaFinal.getFila());
+                                    System.out.println("casilla de donde intento moverse: "+casillaInicial.getColumna()+casillaInicial.getFila());
+                                    System.out.println("casilla a donde intento moverse: "+casillaFinal.getColumna()+casillaFinal.getFila());
                                 }
             
             if(casillaFinal.getFicha()==this){
@@ -96,5 +110,66 @@ public class Peon extends Ficha {
         g.setPaint(java.awt.Color.BLACK);
         g.draw(new Ellipse2D.Float(x + 17, y + 15, 16, 16));
         g.draw(new Rectangle2D.Float(x + 15, y + 30, 20, 15));
+    }
+
+    @Override
+    public Ficha duplicar() {
+        Peon nuevoPeon = new Peon(color);
+        nuevoPeon.inicio=inicio;
+        return nuevoPeon;
+    }
+
+    @Override
+    public boolean validarMovimiento(Casilla casillaInicial, Casilla casillaFinal, Casilla[] camino, Color color) {
+        boolean validarMovimiento=false;
+            if(((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada())    
+                    ){
+                    if(casillaInicial.getFicha().getColor().equals(color)){
+                            int i=0,libre=0;
+                           while((i<camino.length)&&(camino[i]!=null)){   
+                               if(!camino[i].isOcupada()){                            
+                                    libre++;
+                                }
+                                i++; 
+                            }
+                            if(libre==i){
+                                validarMovimiento=true;
+                                inicio=false;  
+                           }else{
+                               
+                            }  
+                    }
+                }else if(((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()) ||
+                        ((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada())    
+                        ){  
+                            if(casillaInicial.getFicha().getColor().equals(color)){
+                                    validarMovimiento=true;  
+                            }   
+                        }else if(casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor().equals(color))
+                                &&(casillaFinal.getFicha().getColor()!=color)
+                                ){
+                            
+                                  if(casillaInicial.getFicha().getColor()==Color.BLANCO){
+                                    if((casillaInicial.getFila()+1==casillaFinal.getFila()&&
+                                        casillaInicial.getColumna()-1==casillaFinal.getColumna())||
+                                       (casillaInicial.getFila()+1==casillaFinal.getFila()&&
+                                        casillaInicial.getColumna()+1==casillaFinal.getColumna())){
+                                           validarMovimiento=true;
+                                       }  
+                                 }else{
+                                     if((casillaInicial.getFila()-1==casillaFinal.getFila()&&
+                                        casillaInicial.getColumna()+1==casillaFinal.getColumna())||
+                                       (casillaInicial.getFila()-1==casillaFinal.getFila()&&
+                                        casillaInicial.getColumna()-1==casillaFinal.getColumna())){
+                                          validarMovimiento=true; 
+                                       }
+                                 }
+                                  
+                                }
+            
+     return validarMovimiento; 
     }
 }

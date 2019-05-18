@@ -53,7 +53,9 @@ public abstract class Ficha extends Dibujable {
         }
         return tipo + (getColor() == Color.BLANCO ? "B" : "N");
     }
-    
+
+    public abstract Ficha  duplicar();
+    public abstract boolean validarMovimiento(Casilla casillaInicial,Casilla casillaFinal, Casilla camino[],Color color);
   
 
 }

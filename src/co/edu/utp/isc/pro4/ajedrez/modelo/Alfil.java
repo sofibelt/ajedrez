@@ -87,5 +87,44 @@ public class Alfil extends Ficha {
         g.draw(new  Ellipse2D.Float(x + 18, y + 4, 8, 15));
         
     }
+
+    @Override
+    public Ficha duplicar() {
+        Ficha nuevoAlfil = new Alfil(color);
+        return nuevoAlfil;
+        
+    }
+
+    @Override
+    public boolean validarMovimiento(Casilla casillaInicial, Casilla casillaFinal, Casilla[] camino, Color color) {
+       boolean validarMovimiento=false;
+        if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())==Math.abs(casillaFinal.getFila()-casillaInicial.getFila())
+                ){
+                if(casillaInicial.getFicha().getColor().equals(color)){
+                     int i=0,libre=0;
+                        while((i<camino.length)&&(camino[i]!=null)){   
+                            if(!camino[i].isOcupada()){                            
+                                libre++;
+                            }
+                              i++; 
+                        }
+                   if(casillaFinal.isOcupada()){
+                        if(casillaFinal.getFicha().getColor()!=color){
+                            if(libre==i){
+                                validarMovimiento=true;
+                            }
+                        }
+                    }else{
+                       if(libre==i){
+                           validarMovimiento=true;
+                       }
+                   }        
+                }
+            }
+        
+        return validarMovimiento;  
+    }
+    
+    
     
 }

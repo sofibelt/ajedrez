@@ -24,7 +24,10 @@ public class Caballo extends Ficha {
     public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
         boolean validarMovimiento=false;
         if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())
-              + Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==3){
+              + Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==3&&
+                (casillaFinal.getColumna()-casillaInicial.getColumna())!=0&&
+                (casillaFinal.getFila()-casillaInicial.getFila())!=0
+                ){
             if(casillaInicial.getFicha().getColor().equals(color)){
                 if(casillaFinal.isOcupada()){
                     if(casillaFinal.getFicha().getColor()!=color){
@@ -82,6 +85,33 @@ public class Caballo extends Ficha {
        g.draw(polyline);
        
        
+    }
+
+    @Override
+    public Ficha duplicar() {
+        Ficha nuevoCaballo = new Caballo(color);
+        return nuevoCaballo;
+    }
+
+    @Override
+    public boolean validarMovimiento(Casilla casillaInicial, Casilla casillaFinal, Casilla[] camino, Color color) {
+        boolean validarMovimiento=false;
+        if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())
+              + Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==3&&
+                (casillaFinal.getColumna()-casillaInicial.getColumna())!=0&&
+                (casillaFinal.getFila()-casillaInicial.getFila())!=0
+                ){
+            if(casillaInicial.getFicha().getColor().equals(color)){
+                if(casillaFinal.isOcupada()){
+                    if(casillaFinal.getFicha().getColor()!=color){
+                       validarMovimiento=true; 
+                    }
+                }else{
+                    validarMovimiento=true;
+                }
+            }
+        }
+        return validarMovimiento;  
     }
     
 }

@@ -97,5 +97,40 @@ public class Torre extends Ficha {
         g.setColor(java.awt.Color.BLACK);
         g.draw(polyline);
     }
+
+    @Override
+    public Ficha duplicar() {
+       Torre nuevoTorre = new Torre(color);
+        return nuevoTorre;
+    }
+
+    @Override
+    public boolean validarMovimiento(Casilla casillaInicial, Casilla casillaFinal, Casilla[] camino, Color color) {
+        boolean validarMovimiento=false;
+        if((casillaFinal.getColumna()==casillaInicial.getColumna())||
+          (casillaFinal.getFila()==casillaInicial.getFila())){
+            if(casillaInicial.getFicha().getColor().equals(color)){
+                int i=0,libre=0;
+                        while((i<camino.length)&&(camino[i]!=null)){   
+                            if(!camino[i].isOcupada()){                            
+                                libre++;
+                            }
+                              i++; 
+                        }
+                if(casillaFinal.isOcupada()){
+                    if(casillaFinal.getFicha().getColor()!=color){
+                            if(libre==i){
+                                validarMovimiento=true;
+                            }
+                        }
+                }else{
+                    if(libre==i){
+                           validarMovimiento=true;
+                       }
+                }
+            }
+        }
+        return validarMovimiento;
+    }
     
 }

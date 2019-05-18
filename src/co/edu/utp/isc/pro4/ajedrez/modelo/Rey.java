@@ -99,4 +99,34 @@ public class Rey extends Ficha {
         
     }
 
+    @Override
+    public Ficha duplicar() {
+       Rey nuevoRey = new Rey(color);
+        return nuevoRey;
+    }
+
+    @Override
+    public boolean validarMovimiento(Casilla casillaInicial, Casilla casillaFinal, Casilla[] camino, Color color) {
+        boolean validarMovimiento=false;
+     if(((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaFinal.getFila()==casillaInicial.getFila()+1))||
+        ((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaFinal.getFila()==casillaInicial.getFila()-1))||
+        ((casillaFinal.getFila()==casillaInicial.getFila())&&(casillaFinal.getColumna()==(char)casillaInicial.getColumna()+1))||
+        ((casillaFinal.getFila()==casillaInicial.getFila())&&(casillaFinal.getColumna()==(char)casillaInicial.getColumna()-1))||
+        ((casillaFinal.getFila()!=casillaInicial.getFila()&&casillaFinal.getColumna()!=casillaInicial.getColumna())
+             &&Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())+Math.abs(casillaFinal.getFila()-casillaInicial.getFila())==2))
+     {
+         if(casillaInicial.getFicha().getColor().equals(color)){
+             if(casillaFinal.isOcupada()){
+                  if(casillaFinal.getFicha().getColor()!=color){
+                      validarMovimiento=true;
+                  }
+             }else{
+                 validarMovimiento=true;
+             }
+         }
+     }
+     
+     return validarMovimiento;  
+    }
+
 }

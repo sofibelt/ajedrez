@@ -35,130 +35,150 @@ public class Tablero {
         int fila = Integer.valueOf(posicion.substring(1)) - 1;
         return getCasilla(fila, columna);
     }
-    
-    public Casilla[] getCamino(Casilla primeraPosicion, Casilla segundaPosicion){
+
+    public Casilla[] getCamino(Casilla primeraPosicion, Casilla segundaPosicion) {
         Casilla[] posicion = new Casilla[6];
         int i;
-        if(primeraPosicion.getFila()==segundaPosicion.getFila()){   
-           i=1;
-            if(primeraPosicion.getColumna()<segundaPosicion.getColumna()){
-                while(primeraPosicion.getColumna()+i!=segundaPosicion.getColumna()){
-                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()+i)+
-                            Integer.toString(primeraPosicion.getFila()));   
-                 i++;
+        if(primeraPosicion==segundaPosicion){
+            return posicion;
+        }
+        if (primeraPosicion.getFila() == segundaPosicion.getFila()) {
+            i = 1;
+            if (primeraPosicion.getColumna() < segundaPosicion.getColumna()) {
+                while (primeraPosicion.getColumna() + i != segundaPosicion.getColumna()) {
+                    posicion[i - 1] = getCasilla((char) (primeraPosicion.getColumna() + i)
+                            + Integer.toString(primeraPosicion.getFila()));
+                    i++;
                 }
-            }else{
-                while(primeraPosicion.getColumna()-i!=segundaPosicion.getColumna()){
-                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()-i)+
-                            Integer.toString(primeraPosicion.getFila()));   
-                 i++;
+            } else {
+                while (primeraPosicion.getColumna() - i != segundaPosicion.getColumna()) {
+                    posicion[i - 1] = getCasilla((char) (primeraPosicion.getColumna() - i)
+                            + Integer.toString(primeraPosicion.getFila()));
+                    i++;
+                }
+            }
+        } else if (primeraPosicion.getColumna() == segundaPosicion.getColumna()) {
+            i = 1;
+            if (primeraPosicion.getFila() < segundaPosicion.getFila()) {
+                while (primeraPosicion.getFila() + i != segundaPosicion.getFila()) {
+                    posicion[i - 1] = getCasilla((char) (primeraPosicion.getColumna())
+                            + Integer.toString(primeraPosicion.getFila() + i));
+                    i++;
+                }
+            } else {
+                while (primeraPosicion.getFila() - i != segundaPosicion.getFila()) {
+                    posicion[i - 1] = getCasilla((char) (primeraPosicion.getColumna())
+                            + Integer.toString(primeraPosicion.getFila() - i));
+                    i++;
+                }
+            }
+        } else {
+            i = 1;
+            if ((primeraPosicion.getFila() < segundaPosicion.getFila())
+                    && (primeraPosicion.getColumna() < segundaPosicion.getColumna())) {
+                while ((primeraPosicion.getFila() + i != segundaPosicion.getFila())
+                        && (primeraPosicion.getColumna() + i != segundaPosicion.getColumna())) {
+                    posicion[i - 1] = getCasilla((char) (primeraPosicion.getColumna() + i)
+                            + Integer.toString(primeraPosicion.getFila() + i));
+                    i++;
+                }
+            } else if ((primeraPosicion.getFila() > segundaPosicion.getFila())
+                    && (primeraPosicion.getColumna() < segundaPosicion.getColumna())) {
+                while ((primeraPosicion.getFila() - i != segundaPosicion.getFila())
+                        && (primeraPosicion.getColumna() + i != segundaPosicion.getColumna())) {
+                    posicion[i - 1] = getCasilla((char) (primeraPosicion.getColumna() + i)
+                            + Integer.toString(primeraPosicion.getFila() - i));
+                    i++;
+                }
+            } else if ((primeraPosicion.getFila() > segundaPosicion.getFila())
+                    && (primeraPosicion.getColumna() > segundaPosicion.getColumna())) {
+                while ((primeraPosicion.getFila() - i != segundaPosicion.getFila())
+                        && (primeraPosicion.getColumna() - i != segundaPosicion.getColumna())) {
+                    posicion[i - 1] = getCasilla((char) (primeraPosicion.getColumna() - i)
+                            + Integer.toString(primeraPosicion.getFila() - i));
+                    i++;
+                }
+            } else if ((primeraPosicion.getFila() < segundaPosicion.getFila())
+                    && (primeraPosicion.getColumna() > segundaPosicion.getColumna())) {
+                while ((primeraPosicion.getFila() + i != segundaPosicion.getFila())
+                        && (primeraPosicion.getColumna() - i != segundaPosicion.getColumna())) {
+                    posicion[i - 1] = getCasilla((char) (primeraPosicion.getColumna() - i)
+                            + Integer.toString(primeraPosicion.getFila() + i));
+                    i++;
+                }
+            }
+        }
+        return posicion;
+    }
+
+    public Casilla buscarRey(Color color) {
+        Casilla casilla = null;
+         for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (getCasilla(i, j).getFicha() instanceof Rey
+                            && getCasilla(i, j).getFicha().getColor() == color) {
+                        casilla = getCasilla(i, j);
+                    }
                 }
             }  
-        }else if(primeraPosicion.getColumna()==segundaPosicion.getColumna()){      
-            i=1;
-            if(primeraPosicion.getFila()<segundaPosicion.getFila()){
-                while(primeraPosicion.getFila()+i!=segundaPosicion.getFila()){
-                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna())+
-                            Integer.toString(primeraPosicion.getFila()+i));   
-                 i++;
-                }
-            }else{
-                while(primeraPosicion.getFila()-i!=segundaPosicion.getFila()){
-                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna())+
-                            Integer.toString(primeraPosicion.getFila()-i));   
-                 i++;
-                }
-            }
-        }else{
-            i=1;
-            if((primeraPosicion.getFila()<segundaPosicion.getFila())&&
-                    (primeraPosicion.getColumna()<segundaPosicion.getColumna())){
-                while((primeraPosicion.getFila()+i!=segundaPosicion.getFila())&&
-                        (primeraPosicion.getColumna()+i!=segundaPosicion.getColumna())){
-                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()+i)+
-                            Integer.toString(primeraPosicion.getFila()+i));   
-                 i++;
-                }
-            }else if((primeraPosicion.getFila()>segundaPosicion.getFila())&&
-                    (primeraPosicion.getColumna()<segundaPosicion.getColumna())){
-                while((primeraPosicion.getFila()-i!=segundaPosicion.getFila())&&
-                        (primeraPosicion.getColumna()+i!=segundaPosicion.getColumna())){
-                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()+i)+
-                            Integer.toString(primeraPosicion.getFila()-i));   
-                 i++;
-                }
-            }else if((primeraPosicion.getFila()>segundaPosicion.getFila())&&
-                    (primeraPosicion.getColumna()>segundaPosicion.getColumna())){
-                while((primeraPosicion.getFila()-i!=segundaPosicion.getFila())&&
-                        (primeraPosicion.getColumna()-i!=segundaPosicion.getColumna())){
-                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()-i)+
-                            Integer.toString(primeraPosicion.getFila()-i));   
-                 i++;
-                }
-            }else if((primeraPosicion.getFila()<segundaPosicion.getFila())&&
-                    (primeraPosicion.getColumna()>segundaPosicion.getColumna())){
-                while((primeraPosicion.getFila()+i!=segundaPosicion.getFila())&&
-                        (primeraPosicion.getColumna()-i!=segundaPosicion.getColumna())){
-                 posicion[i-1]=getCasilla((char)(primeraPosicion.getColumna()-i)+
-                            Integer.toString(primeraPosicion.getFila()+i));   
-                 i++;
-                }
-            }
-        }  
-        return  posicion;
+        return casilla;
     }
-    
-    public void jaque(Color color,Ficha ficha,Casilla casillaInicial,Casilla casillaFinal){
-        boolean peligroDeJaque=false;
-        Casilla casilla = null;
-        int fila = 0,columna = 0,fichaFila=0,fichaColumna=0;
-        if(ficha instanceof Rey){
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {                
-                    if(getCasilla(i,j)==casillaFinal){
-                        fila=i;
-                        columna=j;
-                        casilla=getCasilla(i,j);
-                    }
-                    if(getCasilla(i,j)==casillaInicial){
-                        fichaFila=i;
-                        fichaColumna=j;
+
+    public Casilla[] buscarJaque(Color color) {
+        Casilla[] fichas = new Casilla[16];
+        int arreglo = 0;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (getCasilla(i, j).isOcupada()) {
+                    if (getCasilla(i, j).getFicha().getColor() != color) {
+                        fichas[arreglo] = getCasilla(i, j);
+                        arreglo++;
                     }
                 }
             }
-        }else{
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {                
-                    if(getCasilla(i,j).getFicha() instanceof Rey
-                            &&getCasilla(i,j).getFicha().getColor()==color
-                            ){
-                        fila=i;
-                        columna=j;
-                        casilla=getCasilla(i,j);
-                    }
-                    if(getCasilla(i,j)==casillaInicial){
-                        fichaFila=i;
-                        fichaColumna=j;
-                    }
+        }
+
+        return fichas;
+    }
+
+    public Tablero duplicarTablero() {
+        Tablero temporal = new Tablero();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Ficha ficha = getCasilla(i,j).getFicha();
+                if(ficha!=null){
+                    ficha=ficha.duplicar();
+                    ficha.setCasilla(temporal.getCasilla(i,j));
                 }
+                temporal.getCasilla(i,j).setFicha(ficha);
             }
             
         }
-        
-        for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {   
-                    if(getCasilla(i,j).isOcupada()){
-                     if(getCasilla(i,j).getFicha().getColor()!=color){
-                           if(getCasilla(i,j).getFicha() instanceof Peon){
-                               if(getCasilla(i,j)==casillaInicial){
-                                   getCasilla(i,j);
-                               }
-                           }
-                        }   
-                    }
-                }
-            } 
-                
+        return temporal; 
     }
+    
+    public void mostrarTablero(){
+        System.out.println("  \tA \tB \tC \tD \tE \tF \tG \tH");
+        for (int i = 0; i < 8; i++) {
+            System.out.print((i + 1));
+            for (int j = 0; j < 8; j++) {
+                System.out.print("\t" + getCasilla(i, j));
+            }
+            System.out.println();
+        }
+    }
+    
+    public Casilla[] encontrarCaminoRey(Casilla rey, Tablero copia){
+        Casilla[] casillas = new Casilla[8];
+          casillas[0]=copia.getCasilla(rey.getColumna()+Integer.toString(rey.getFila()+1));
+          casillas[1]=copia.getCasilla((char)(rey.getColumna()+1)+Integer.toString(rey.getFila()+1));
+          casillas[2]=copia.getCasilla((char)(rey.getColumna()+1)+Integer.toString(rey.getFila()));
+          casillas[3]=copia.getCasilla((char)(rey.getColumna()+1)+Integer.toString(rey.getFila()-1));
+          casillas[4]=copia.getCasilla(rey.getColumna()+Integer.toString(rey.getFila()-1));
+          casillas[5]=copia.getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()-1));
+          casillas[6]=copia.getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()));
+          casillas[7]=copia.getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()+1));
+    return casillas;
+    } 
 
 }
