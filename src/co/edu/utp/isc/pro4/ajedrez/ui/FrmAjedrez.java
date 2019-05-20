@@ -1,7 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * FrmAjedrez.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.ui;
 
@@ -9,10 +12,7 @@ import co.edu.utp.isc.pro4.ajedrez.modelo.Ajedrez;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Color;
 import co.edu.utp.isc.pro4.ajedrez.modelo.Jugador;
 
-/**
- *
- * @author utp
- */
+/** clase FrnAjedrez, cuya funcion es simular el juego*/
 public class FrmAjedrez extends javax.swing.JFrame {
 
     private Ajedrez juego;
@@ -276,6 +276,11 @@ public class FrmAjedrez extends javax.swing.JFrame {
         jTextField2.setEditable(false);
         jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField2.setText("00:00:00");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -436,6 +441,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
             System.out.println((char) ('A' + col - 1) + Integer.toString(row));
             if (jugadaInicial) {
                 txtInicio.setText((char) ('A' + col - 1) + Integer.toString(row));
+                
                 jugadaInicial = false;
             } else {
                 txtFin.setText((char) ('A' + col - 1) + Integer.toString(row));
@@ -472,6 +478,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
         if (juego != null&&juego.estadoDelJuego()) {
             String posicionInicial=txtInicio.getText();
             String posicionFinal=txtFin.getText();
+            txtMovimientos.setText(txtMovimientos.getText()+"\n"+txtInicio.getText()+" "+txtFin.getText());  
             juego.getJugador().jugar(posicionInicial, posicionFinal);
         }
         if(!juego.estadoDelJuego()){
@@ -518,6 +525,10 @@ public class FrmAjedrez extends javax.swing.JFrame {
         // TODO add your handling code here:
         juego.realizarEnroqueLargo(juego.getJugador().getColor());
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments

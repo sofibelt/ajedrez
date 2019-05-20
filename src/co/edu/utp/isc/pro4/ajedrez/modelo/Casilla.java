@@ -1,7 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Casilla.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
@@ -9,24 +12,26 @@ import controlador.Dibujable;
 import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 
-/**
- *
- * @author utp
- */
+/** clase Casilla, cuya funcion es simular las casillas del ajedrez*/
 public class Casilla extends Dibujable {
+/** lo que se pretende es simular todas las opciones que nos daria el juego real, 
+ *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
+    
+    //Variables
     private final Color color;
     private final int fila;
-    private final char columna;
-    
+    private final char columna;  
     private Ficha ficha;
-
+    
+    //Constructor
     public Casilla(Color color, int fila, char columna) {
         this.color = color;
         this.fila = fila;
         this.columna = columna;
         ficha = null;
     }
-
+    
+    //Metodos
     public Color getColor() {
         return color;
     }

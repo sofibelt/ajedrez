@@ -1,28 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Reina.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 import java.lang.Math;
-
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
-/**
- *
- * @author utp
- */
-public class Reina extends Ficha {
 
+/** clase Reina, cuya funcion es simular el movimiento de la Reina */
+public class Reina extends Ficha {
+/** lo que se pretende es simular todas las opciones que nos daria el juego real, 
+ *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
+    
+    //Constructor
     public Reina(Color color) {
         super(color);
     }
-
+    
+    //Metodos en general heredados
     @Override
     public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+        //se realiza el mismo procedimiento que en alfil, solo que con otra validacion de casillas
        boolean validarMovimiento=false;
         if(
           (casillaFinal.getColumna()==casillaInicial.getColumna())||

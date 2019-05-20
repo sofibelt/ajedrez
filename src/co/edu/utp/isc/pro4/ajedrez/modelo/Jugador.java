@@ -1,29 +1,37 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Jugador.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
 import static co.edu.utp.isc.pro4.ajedrez.modelo.Color.BLANCO;
 import java.util.Scanner;
-/**
- *
- * @author utp
- */
-public class Jugador {
 
+/** clase Jugador, cuya funcion es simular los jugadores del ajedrez */
+public class Jugador {
+/** lo que se pretende es simular todas las opciones que nos daria el juego real, 
+ *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
+    
+    //Variables
     private Ajedrez ajedrez;
     private String nombre;
     private Color color;
-
+    
+    
+    //Constructor
     public Jugador(String nombre,Color color) {
         this.nombre = nombre;
         this.color =color;
 
     }
-
-    public void jugar(String posicionInicial, String posicionFinal) {  
+    
+    //Metodos
+    public void jugar(String posicionInicial, String posicionFinal) {
+        //se manda a ajedrez las posiciones finales he iniciales de las fichas
         ajedrez.moverFicha(posicionInicial,posicionFinal); 
     }
 

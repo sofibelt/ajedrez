@@ -1,45 +1,55 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Alfil.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 import java.lang.Math;
-
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
-/**
- *
- * @author utp
- */
-public class Alfil extends Ficha {
 
+/** clase Alfil, cuya funcion es simular el movimiento del Alfil */
+public class Alfil extends Ficha {
+/** lo que se pretende es simular todas las opciones que nos daria el juego real, 
+ *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
+    
+    //Constructor
     public Alfil(Color color) {
         super(color);
     }
-
+    
+    //Metodos, en general heredados
     @Override
     public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
         boolean validarMovimiento=false;
+        //se evalua la casilla a donde se quiere mover (si es valido el movimiento)
         if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())==Math.abs(casillaFinal.getFila()-casillaInicial.getFila())
                 ){
+            //se evalua que la ficha que mueve sea del color del jugador
                 if(casillaInicial.getFicha().getColor().equals(color)){
-                     int i=0,libre=0;
+                     int i=0,libre=0;//variables temporales
+                     //se evalua que el camino entre ambas fichas este libre
                         while((i<camino.length)&&(camino[i]!=null)){   
                             if(!camino[i].isOcupada()){                            
                                 libre++;
                             }
                               i++; 
                         }
+                   //si la casilla final esta ocupada, se evalua que se pueda comer la ficha     
                    if(casillaFinal.isOcupada()){
+                       //se evalua que la ficha sea de diferente color al jugador
                         if(casillaFinal.getFicha().getColor()!=color){
                             if(libre==i){
                                 comer(casillaInicial,casillaFinal);
                             }
                         }
                     }else{
+                       //si la casilla esta libre se procede a mover la ficha
                        if(libre==i){
                            setCasilla(casillaFinal); 
                            casillaFinal.setFicha(this);
@@ -53,6 +63,7 @@ public class Alfil extends Ficha {
                 }
         
         if(casillaFinal.getFicha()==this){
+                //se procede a elimar la ficha de la casilla anterior
                 Ficha ficha=null;
                 casillaInicial.setFicha(ficha);  
                 validarMovimiento=true;
@@ -62,6 +73,7 @@ public class Alfil extends Ficha {
 
     @Override
     public void comer(Casilla casillaInicial,Casilla casillaFinal) {
+               //se procede a comer la ficha
                Casilla nuevaCasilla = null;
                setCasilla(casillaFinal);
                Ficha fichaAnterior=casillaFinal.getFicha();
@@ -90,6 +102,7 @@ public class Alfil extends Ficha {
 
     @Override
     public Ficha duplicar() {
+        //se duplica la ficha
         Ficha nuevoAlfil = new Alfil(color);
         return nuevoAlfil;
         
@@ -97,7 +110,8 @@ public class Alfil extends Ficha {
 
     @Override
     public boolean validarMovimiento(Casilla casillaInicial, Casilla casillaFinal, Casilla[] camino, Color color) {
-       boolean validarMovimiento=false;
+       //se hace el mismo proceso de mover ficha para validar si esta puede ser movida a un casilla, sin ejecutar el movimiento verdaderamente
+        boolean validarMovimiento=false;
         if(Math.abs(casillaFinal.getColumna()-casillaInicial.getColumna())==Math.abs(casillaFinal.getFila()-casillaInicial.getFila())
                 ){
                 if(casillaInicial.getFicha().getColor().equals(color)){

@@ -1,16 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Dibujable.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package controlador;
 
 import java.awt.Graphics2D;
 
-/**
- *
- * @author utp
- */
+/** clase Dibujable, se encarga de generar el metodo dibujar */
 public abstract class Dibujable {
     
     public abstract void draw(Graphics2D g, float x, float y);

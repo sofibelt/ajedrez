@@ -1,24 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Ficha.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
 import controlador.Dibujable;
-/**
- *
- * @author utp
- */
-public abstract class Ficha extends Dibujable {
 
+/** clase Ficha, cuya funcion es simular las Fichas usadas en el ajedrez*/
+public abstract class Ficha extends Dibujable {
+/** lo que se pretende es simular todas las opciones que nos daria el juego real, 
+ *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
+    
+    //Variables
     private Casilla casilla;
     final Color color;
-
+    
+    //Constructor
     public Ficha(Color color) {
         this.color = color;
     }
-
+    
+    //Metodos
     public abstract boolean mover(Casilla casillaInicial,Casilla casillaFinal, Casilla camino[],Color color);
 
     public abstract void comer(Casilla casillaInicial,Casilla casillaFinal);

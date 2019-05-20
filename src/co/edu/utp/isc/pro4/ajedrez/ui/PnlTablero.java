@@ -1,7 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * PnlTablero.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.ui;
 
@@ -10,10 +13,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
-/**
- *
- * @author utp
- */
+/** clase PnlTablero, cuya funcion es manejar la visualizacion de objetos en el tablero */
 public class PnlTablero extends JPanel {
 
     private Tablero tablero;

@@ -1,27 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Torre.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
-
-
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 
-/**
- *
- * @author utp
- */
+/** clase Torre, cuya funcion es simular el movimiento de la Torre */
 public class Torre extends Ficha {
-
+/** lo que se pretende es simular todas las opciones que nos daria el juego real, 
+ *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
+    
+    //Constructor
     public Torre(Color color) {
         super(color);
     }
-
+    
+    //Metodos, en general heredados
     @Override
     public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+        //se realiza el mismo procedimiento que en alfil, solo que con otra validacion de casillas
         boolean validarMovimiento=false;
         if((casillaFinal.getColumna()==casillaInicial.getColumna())||
           (casillaFinal.getFila()==casillaInicial.getFila())){

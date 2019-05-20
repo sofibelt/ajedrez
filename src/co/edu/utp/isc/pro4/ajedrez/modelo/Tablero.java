@@ -1,18 +1,22 @@
-  /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Tablero.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 
-/**
- *
- * @author utp
- */
+/** clase Tablero, cuya funcion es simular el tablero del ajedrez */
 public class Tablero {
-
+/** lo que se pretende es simular todas las opciones que nos daria el juego real, 
+ *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
+    
+    //Variable
     private final Casilla[][] casillas;
 
+    //Constructor
     public Tablero() {
         casillas = new Casilla[8][];
         for (int i = 0; i < 8; i++) {
@@ -25,7 +29,8 @@ public class Tablero {
             }
         }
     }
-
+    
+    //Metodo
     public Casilla getCasilla(int fila, int columna) {
         return casillas[fila][columna];
     }

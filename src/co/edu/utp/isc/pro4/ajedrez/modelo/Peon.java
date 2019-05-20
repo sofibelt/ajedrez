@@ -1,34 +1,51 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Peon.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.modelo;
 import java.lang.Math;
-
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
-/**
- *
- * @author utp
- */
+
+/** clase Peon, cuya funcion es simular el movimiento del Peon */
 public class Peon extends Ficha {
+/** lo que se pretende es simular todas las opciones que nos daria el juego real, 
+ *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
+    
+    //Variable
     private boolean inicio;
     
+    //Constructor
     public Peon(Color color) {
         super(color);
         inicio=true;
     }
-
+    
+    //Metodos en general heredados
     @Override
     public boolean mover(Casilla casillaInicial,Casilla casillaFinal,Casilla camino[],Color color) {
+        //se realiza el mismo procedimiento que en alfil, solo que con otra validacion de casillas
+        //dependiendo de si se mueve una o dos casillas (estado inicial falso o verdadero)
+        //la unica condicion extra es que si dependiendo de su color y su estado incial, hay casillas inalcanzables
         boolean validarMovimiento=false;
-            if(((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
-               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO)) ||
-               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
-               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO))    
+            if(((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&
+                    (casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&
+                    (casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&
+                    (casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&
+                    (casillaInicial.getFicha().getColor()==Color.NEGRO)) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&
+                    (casillaInicial.getFila()+2==casillaFinal.getFila()))&&
+                    (!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&
+                    (casillaInicial.getFila()-2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&
+                    (casillaInicial.getFicha().getColor()==Color.NEGRO))    
                     ){
                     if(casillaInicial.getFicha().getColor().equals(color)){
                             int i=0,libre=0;
@@ -46,8 +63,10 @@ public class Peon extends Ficha {
                                System.out.println("hay una ficha en medio"); 
                             }  
                     }
-                }else if(((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
-                        ((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO))    
+                }else if(((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&
+                         (!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
+                         ((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&
+                         (!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO))    
                         ){  
                             if(casillaInicial.getFicha().getColor().equals(color)){
                                     setCasilla(casillaFinal);
@@ -124,10 +143,14 @@ public class Peon extends Ficha {
     @Override
     public boolean validarMovimiento(Casilla casillaInicial, Casilla casillaFinal, Casilla[] camino, Color color) {
         boolean validarMovimiento=false;
-            if(((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
-               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO)) ||
-               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
-               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO))    
+            if(((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&
+                    (!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&
+                    (!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO)) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+2==casillaFinal.getFila()))&&
+                    (!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
+               ((inicio==true)&&(casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-2==casillaFinal.getFila()))&&
+                    (!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO))    
                     ){
                     if(casillaInicial.getFicha().getColor().equals(color)){
                             int i=0,libre=0;
@@ -144,8 +167,10 @@ public class Peon extends Ficha {
                                
                             }  
                     }
-                }else if(((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
-                        ((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO))    
+                }else if(((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()+1==casillaFinal.getFila()))&&
+                         (!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)) ||
+                         ((casillaFinal.getColumna()==casillaInicial.getColumna())&&(casillaInicial.getFila()-1==casillaFinal.getFila()))&&
+                         (!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO))    
                         ){  
                             if(casillaInicial.getFicha().getColor().equals(color)){
                                     validarMovimiento=true;  
