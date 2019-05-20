@@ -35,7 +35,7 @@ public class Torre extends Ficha {
                         }
                 if(casillaFinal.isOcupada()){
                     if(casillaFinal.getFicha().getColor()!=color){
-                            if(libre==i){
+                            if(libre==i){ 
                                 comer(casillaInicial,casillaFinal);
                             }
                         }
@@ -132,5 +132,6 @@ public class Torre extends Ficha {
         }
         return validarMovimiento;
     }
+    
     
 }

@@ -17,8 +17,10 @@ import java.awt.geom.Rectangle2D;
  */
 public class Rey extends Ficha {
 
+
     public Rey(Color color) {
         super(color);
+        
     }
 
     @Override
@@ -34,11 +36,13 @@ public class Rey extends Ficha {
          if(casillaInicial.getFicha().getColor().equals(color)){
              if(casillaFinal.isOcupada()){
                   if(casillaFinal.getFicha().getColor()!=color){
+                      
                       comer(casillaInicial,casillaFinal);
                   }
              }else{
                  setCasilla(casillaFinal); 
                  casillaFinal.setFicha(this);
+                 
              }
          }
      }else{
@@ -128,5 +132,6 @@ public class Rey extends Ficha {
      
      return validarMovimiento;  
     }
+
 
 }

@@ -123,6 +123,20 @@ public class Tablero {
             }  
         return casilla;
     }
+    public Casilla[] buscarTorre(Color color) {
+        Casilla casilla[]=new Casilla[2];
+        int a=0;
+         for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (getCasilla(i, j).getFicha() instanceof Torre
+                            && getCasilla(i, j).getFicha().getColor() == color) {
+                        casilla[a] = getCasilla(i, j);
+                        a++;
+                    }
+                }
+            }  
+        return casilla;
+    }
 
     public Casilla[] buscarJaque(Color color) {
         Casilla[] fichas = new Casilla[16];
@@ -185,13 +199,13 @@ public class Tablero {
         if(rey.getFila()-1>=1){
           casillas[4]=getCasilla(rey.getColumna()+Integer.toString(rey.getFila()-1));
         }
-        if(rey.getColumna()-1<='A'&&rey.getFila()-1>=1){
+        if(rey.getColumna()-1>='A'&&rey.getFila()-1>=1){
           casillas[5]=getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()-1));
         }
-        if(rey.getColumna()-1<='A'){
+        if(rey.getColumna()-1>='A'){
           casillas[6]=getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()));
         }
-        if(rey.getColumna()-1<='A'){
+        if(rey.getColumna()-1>='A'&&rey.getFila()+1<=8){
           casillas[7]=getCasilla((char)(rey.getColumna()-1)+Integer.toString(rey.getFila()+1));
         }
     return casillas;

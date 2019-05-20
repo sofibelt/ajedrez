@@ -216,8 +216,45 @@ public class Ajedrez {
         return validarJaqueMate;
     }
 
-    private boolean validarTablas() {
-        //TODO: Validar si los jugadores se han quedado sin posibilidad de ganar
+    private boolean validarTablas(Color jugador, Color contrincante) {
+        Casilla aliados[]=tablero.buscarJaque(contrincante);
+        Casilla enemigos[]=tablero.buscarJaque(jugador);
+        int i=0,numeroAliados=0,numeroContrincante=0;
+        while(i<aliados.length&&aliados[i]!=null){
+            numeroAliados++;
+            i++;
+        }
+        i=0;
+        while(i<aliados.length&&aliados[i]!=null){
+            numeroContrincante++;
+            i++;
+        }
+        int contador=0;
+            if(numeroContrincante!=1&&numeroAliados==1){
+                while(contador<enemigos.length&&enemigos[contador]!=null){
+                    if(enemigos[contador].getFicha() instanceof Peon||enemigos[contador].getFicha() instanceof Torre||
+                            enemigos[contador].getFicha() instanceof Reina){
+                        return false;
+                    }
+                    contador++;
+                }
+                return true;
+            }else{
+               if(numeroAliados!=1&&numeroContrincante==1){
+                  while(contador<aliados.length&&aliados[contador]!=null){
+                    if(aliados[contador].getFicha() instanceof Peon||aliados[contador].getFicha() instanceof Torre||
+                            aliados[contador].getFicha() instanceof Reina){
+                       return false;
+                    }
+                    contador++;
+                }
+                return true; 
+               } 
+            }
+            if(numeroAliados==1&&numeroContrincante==1){
+                return true;
+            }
+          
         return false;
     }
 
@@ -272,6 +309,11 @@ public class Ajedrez {
     public Jugador getJugador() {
         return jugadores[turno];
     }
+    
+    public Jugador getJugadorContrario(){
+        int contrario = (turno == 0 ? 1 : 0);
+        return jugadores[contrario];
+    }
 
     public Casilla[] verificarJaque(Casilla jaque[], Casilla casillaRey,Tablero copia) {
         Casilla[] peligroDeJaque = new Casilla[16];
@@ -290,77 +332,225 @@ public class Ajedrez {
     
 
     public void moverFicha(String primeraPosicion, String segundaPosicion) {
-        Tablero copia = tablero.duplicarTablero();
-        Ficha fichaCopia = copia.getCasilla(primeraPosicion).getFicha();
-        Casilla caminoCopia[] = copia.getCamino(copia.getCasilla(primeraPosicion), copia.getCasilla(segundaPosicion));
-        Ficha primeraPosicionCopia=copia.getCasilla(primeraPosicion).getFicha();
-        Ficha segundaPosicionCopia=copia.getCasilla(segundaPosicion).getFicha();
-        fichaCopia.mover(copia.getCasilla(primeraPosicion), copia.getCasilla(segundaPosicion),
-                caminoCopia, jugadores[turno].getColor());
-        copia.mostrarTablero();
-        Casilla fichas[] = copia.buscarJaque(jugadores[turno].getColor());
-        Casilla jaque[] = verificarJaque(fichas, copia.buscarRey(jugadores[turno].getColor()),copia);
-        int i = 0;
-        boolean enJaque=false;
-        while (i < jaque.length && jaque[i] != null) {
-            System.out.println("ficha que hace jaque: "+jaque[i]);
-            enJaque=true;
-            i++;
-        }
-        if (enJaque) {  
-            copia.getCasilla(primeraPosicion).setFicha(primeraPosicionCopia);
-            copia.getCasilla(segundaPosicion).setFicha(segundaPosicionCopia);
-            copia.mostrarTablero();
-            System.out.println("no se pudo mover, porque entro en jaque");
-            return;
-        }
-
-        Casilla casillaInicial = tablero.getCasilla(primeraPosicion);
-        Casilla casillaFinal = tablero.getCasilla(segundaPosicion);
-        Casilla camino[] = tablero.getCamino(casillaInicial, casillaFinal);
-        Ficha ficha = casillaInicial.getFicha();
-        boolean validarMovimiento = ficha.mover(casillaInicial, casillaFinal, camino, jugadores[turno].getColor());
-        mostrarTablero();
         
-        
-        int contrincante=(turno == 0 ? 1 : 0);
-        Casilla fichasContrario[] = tablero.buscarJaque(jugadores[contrincante].getColor());
-        Casilla jaqueContrario[] = verificarJaque(fichasContrario,tablero.buscarRey(jugadores[contrincante].getColor()),copia);
-        i = 0;
-        enJaque=false;
-        while (i < jaqueContrario.length && jaqueContrario[i] != null) {
-            System.out.println("ficha con la que se hizo el jaque: "+jaqueContrario[i]);
-            enJaque=true;
-            i++;
-        }
-        if (enJaque) {
-            System.out.println("el jugador "+jugadores[turno].getColor()+" le hizo jaque a "+jugadores[contrincante].getColor() );
-            Casilla fichasContrarioDefensa[] =copia.buscarJaque(jugadores[turno].getColor());
-            Casilla fichasContrarioAtaque[] = copia.buscarJaque(jugadores[contrincante].getColor());
-            Casilla jaqueContrarioCopia[] = verificarJaque(fichasContrarioAtaque,copia.buscarRey(jugadores[contrincante].getColor()),copia);
-            // Validar si hay Jaque Mate y terminar
-            if (validarJaqueMate(fichasContrarioDefensa,jaqueContrarioCopia,copia.buscarRey(jugadores[contrincante].getColor()),copia)) {
-                System.out.println("el jugador "+jugadores[turno].getColor()+" le hizo jaque a "+jugadores[contrincante].getColor()+" y este no se puedo mover" );
-                terminado = true;
-            }else{
-                System.out.println("el jugador "+jugadores[contrincante].getColor()+" ha evitado el jaque");    
-            }
+        if(tablero.getCasilla(primeraPosicion)!=tablero.getCasilla(segundaPosicion)&&
+                tablero.getCasilla(primeraPosicion).getFicha()!=null){
+                Tablero copia = tablero.duplicarTablero();
+                Ficha fichaCopia = copia.getCasilla(primeraPosicion).getFicha();
+                Casilla caminoCopia[] = copia.getCamino(copia.getCasilla(primeraPosicion), copia.getCasilla(segundaPosicion));
+                Ficha primeraPosicionCopia=copia.getCasilla(primeraPosicion).getFicha();
+                Ficha segundaPosicionCopia=copia.getCasilla(segundaPosicion).getFicha();
+                fichaCopia.mover(copia.getCasilla(primeraPosicion), copia.getCasilla(segundaPosicion),
+                        caminoCopia, jugadores[turno].getColor());
+                copia.mostrarTablero();
+                Casilla fichas[] = copia.buscarJaque(jugadores[turno].getColor());
+                Casilla jaque[] = verificarJaque(fichas, copia.buscarRey(jugadores[turno].getColor()),copia);
+                int i = 0;
+                boolean enJaque=false;
+                while (i < jaque.length && jaque[i] != null) {
+                    System.out.println("ficha que hace jaque: "+jaque[i]);
+                    enJaque=true;
+                    i++;
+                }
+                if (enJaque) {  
+                    copia.getCasilla(primeraPosicion).setFicha(primeraPosicionCopia);
+                    copia.getCasilla(segundaPosicion).setFicha(segundaPosicionCopia);
+                    copia.mostrarTablero();
+                    System.out.println("no se pudo mover, porque entro en jaque");
+                    return;
+                }
 
-        }
-        
-        if (validarTablas()) {
-            terminado = true;
-        }
+                Casilla casillaInicial = tablero.getCasilla(primeraPosicion);
+                Casilla casillaFinal = tablero.getCasilla(segundaPosicion);
+                Casilla camino[] = tablero.getCamino(casillaInicial, casillaFinal);
+                Ficha ficha = casillaInicial.getFicha();
+                boolean validarMovimiento = ficha.mover(casillaInicial, casillaFinal, camino, jugadores[turno].getColor());
+                mostrarTablero();
+                int contrincante=(turno == 0 ? 1 : 0);
+                if (validarTablas(jugadores[turno].getColor(),jugadores[contrincante].getColor())) {
+                    System.out.println("el juego quedo en tablas");
+                    terminado = true;
+                }   
+                Casilla fichasContrario[] = tablero.buscarJaque(jugadores[contrincante].getColor());
+                Casilla jaqueContrario[] = verificarJaque(fichasContrario,tablero.buscarRey(jugadores[contrincante].getColor()),copia);
+                i = 0;
+                enJaque=false;
+                while (i < jaqueContrario.length && jaqueContrario[i] != null) {
+                    System.out.println("ficha con la que se hizo el jaque: "+jaqueContrario[i]);
+                    enJaque=true;
+                    i++;
+                }
+                if (enJaque) {
+                    System.out.println("el jugador "+jugadores[turno].getColor()+" le hizo jaque a "+jugadores[contrincante].getColor() );
+                    Casilla fichasContrarioDefensa[] =copia.buscarJaque(jugadores[turno].getColor());
+                    Casilla fichasContrarioAtaque[] = copia.buscarJaque(jugadores[contrincante].getColor());
+                    Casilla jaqueContrarioCopia[] = verificarJaque(fichasContrarioAtaque,copia.buscarRey(jugadores[contrincante].getColor()),copia);
+                    // Validar si hay Jaque Mate y terminar
+                    if (validarJaqueMate(fichasContrarioDefensa,jaqueContrarioCopia,copia.buscarRey(jugadores[contrincante].getColor()),copia)) {
+                        System.out.println("el jugador "+jugadores[turno].getColor()+" le hizo jaque a "+jugadores[contrincante].getColor()+" y este no se puedo mover" );
+                        terminado = true;
+                    }else{
+                        System.out.println("el jugador "+jugadores[contrincante].getColor()+" ha evitado el jaque");    
+                    }
 
-        // Sino, cambiar turno, solo si se pudo hacer una jugada
-        if (validarMovimiento) {
-            cambioTurno();
-        } else {
-            System.out.println("intente nuevamente");
+                }
+                // Sino, cambiar turno, solo si se pudo hacer una jugada
+                if (validarMovimiento) {
+                    cambioTurno();
+                } else {
+                    System.out.println("intente nuevamente");
+                }
+        }else{
+           System.out.println("intente nuevamente"); 
         }
-  
         //cronometro.parar();
   
+    }
+    
+    public void realizarEnroqueCorto(Color color){
+        Tablero copia = tablero.duplicarTablero();
+        Casilla rey=copia.buscarRey(color);
+        Casilla torreCercana=null;
+        if(color==Color.BLANCO){
+            torreCercana=copia.getCasilla("H1");
+        }else{
+            torreCercana=copia.getCasilla("H8");
+        }
+        
+        if((rey==copia.getCasilla("E1")||rey==copia.getCasilla("E8"))&&
+            (torreCercana.getFicha()!=null&&torreCercana.getFicha() instanceof Torre)){
+                Casilla casillas[]=copia.getCamino(torreCercana,rey);
+                Casilla enemigos[]=copia.buscarJaque(color);
+                boolean enJaque=false;
+                int i=0,j=0,libre=0;
+                while(j<casillas.length&&casillas[j]!=null){
+                    if(!casillas[j].isOcupada()){
+                        Casilla jaque[]= verificarJaque(enemigos,casillas[j],copia);
+                        while(i<jaque.length&&jaque[i]!=null){
+                            System.out.println("pieza que le queda haciendo jaque: "+jaque[i]);
+                            enJaque=true;
+                            i++;
+                        }
+                    }else{
+                        System.out.println("pieza estorbando: "+casillas[j]);
+                        enJaque=true;
+                        break;
+                    }
+                j++;
+                }
+                if(!enJaque){
+                    if(color==Color.BLANCO){
+                        Casilla movimiento= tablero.getCasilla("G1");
+                        Casilla casillaInicial = tablero.buscarRey(color);
+                        casillaInicial.getFicha().setCasilla(movimiento); 
+                        movimiento.setFicha(casillaInicial.getFicha());
+                        Ficha ficha=null;
+                        casillaInicial.setFicha(ficha); 
+                    }else{
+                        Casilla movimiento= tablero.getCasilla("G8");
+                        Casilla casillaInicial = tablero.buscarRey(color);
+                        casillaInicial.getFicha().setCasilla(movimiento); 
+                        movimiento.setFicha(casillaInicial.getFicha());
+                        Ficha ficha=null;
+                        casillaInicial.setFicha(ficha); 
+                    }
+                    if(color==Color.BLANCO){
+                        Casilla movimiento= tablero.getCasilla("F1");
+                        Casilla casillaInicial = tablero.getCasilla((char)(torreCercana.getColumna())+Integer.toString(torreCercana.getFila()));
+                        casillaInicial.getFicha().setCasilla(movimiento); 
+                        movimiento.setFicha(casillaInicial.getFicha());
+                        Ficha ficha=null;
+                        casillaInicial.setFicha(ficha); 
+                    }else{
+                        Casilla movimiento= tablero.getCasilla("F8");
+                        Casilla casillaInicial = tablero.getCasilla((char)(torreCercana.getColumna())+Integer.toString(torreCercana.getFila()));
+                        casillaInicial.getFicha().setCasilla(movimiento); 
+                        movimiento.setFicha(casillaInicial.getFicha());
+                        Ficha ficha=null;
+                        casillaInicial.setFicha(ficha); 
+                    }
+                    cambioTurno();
+                }else{
+                    System.out.println("no se puede hacer el enroque");
+                }
+ 
+        }else{
+            System.out.println("las fichas no estan en sus posiciones iniciales");
+        }
+        mostrarTablero();
+    }
+    
+    public void realizarEnroqueLargo(Color color){
+        Tablero copia = tablero.duplicarTablero();
+        Casilla rey=copia.buscarRey(color);
+        Casilla torreLejos=null;;
+        if(color==Color.BLANCO){
+            torreLejos=copia.getCasilla("A1");
+        }else{
+            torreLejos=copia.getCasilla("A8");
+        }
+        if((rey==copia.getCasilla("E1")||rey==copia.getCasilla("E8"))&&
+            (torreLejos.getFicha()!=null&&torreLejos.getFicha() instanceof Torre)){
+                Casilla casillas[]=copia.getCamino(torreLejos,rey);
+                Casilla enemigos[]=copia.buscarJaque(color);
+                boolean enJaque=false;
+                int i=0,j=0,libre=0;
+                while(j<casillas.length&&casillas[j]!=null){
+                    if(!casillas[j].isOcupada()){
+                        Casilla jaque[]= verificarJaque(enemigos,casillas[j],copia);
+                        while(i<jaque.length&&jaque[i]!=null){
+                            System.out.println("pieza que le queda haciendo jaque: "+jaque[i]);
+                            enJaque=true;
+                            i++;
+                        }
+                    }else{
+                        System.out.println("pieza estorbando: "+casillas[j]);
+                        enJaque=true;
+                        break;
+                    }
+                j++;
+                }
+                if(!enJaque){
+                    if(color==Color.BLANCO){
+                        Casilla movimiento= tablero.getCasilla("C1");
+                        Casilla casillaInicial = tablero.buscarRey(color);
+                        casillaInicial.getFicha().setCasilla(movimiento); 
+                        movimiento.setFicha(casillaInicial.getFicha());
+                        Ficha ficha=null;
+                        casillaInicial.setFicha(ficha);   
+                    }else{
+                        Casilla movimiento= tablero.getCasilla("C8");
+                        Casilla casillaInicial = tablero.buscarRey(color);
+                        casillaInicial.getFicha().setCasilla(movimiento); 
+                        movimiento.setFicha(casillaInicial.getFicha());
+                        Ficha ficha=null;
+                        casillaInicial.setFicha(ficha); 
+                    }
+                    if(color==Color.BLANCO){
+                        Casilla movimiento= tablero.getCasilla("D1");
+                        Casilla casillaInicial = tablero.getCasilla((char)(torreLejos.getColumna())+Integer.toString(torreLejos.getFila()));
+                        casillaInicial.getFicha().setCasilla(movimiento); 
+                        movimiento.setFicha(casillaInicial.getFicha());
+                        Ficha ficha=null;
+                        casillaInicial.setFicha(ficha); 
+                    }else{
+                        Casilla movimiento= tablero.getCasilla("D8");
+                        Casilla casillaInicial = tablero.getCasilla((char)(torreLejos.getColumna())+Integer.toString(torreLejos.getFila()));
+                        casillaInicial.getFicha().setCasilla(movimiento); 
+                        movimiento.setFicha(casillaInicial.getFicha());
+                        Ficha ficha=null;
+                        casillaInicial.setFicha(ficha); 
+                    }
+                    cambioTurno();
+                }else{
+                    System.out.println("no se puede hacer el enroque");
+                }
+                mostrarTablero();
+                copia.mostrarTablero();
+        }else{
+            System.out.println("las fichas no estan en sus posiciones iniciales");
+        }
+        mostrarTablero();
     }
 
 }

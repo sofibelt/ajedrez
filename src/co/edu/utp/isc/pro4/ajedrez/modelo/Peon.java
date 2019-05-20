@@ -62,6 +62,7 @@ public class Peon extends Ficha {
                                         casillaInicial.getColumna()-1==casillaFinal.getColumna())||
                                        (casillaInicial.getFila()+1==casillaFinal.getFila()&&
                                         casillaInicial.getColumna()+1==casillaFinal.getColumna())){
+                                        inicio=false; 
                                            comer(casillaInicial,casillaFinal); 
                                        }  
                                  }else{
@@ -69,6 +70,7 @@ public class Peon extends Ficha {
                                         casillaInicial.getColumna()+1==casillaFinal.getColumna())||
                                        (casillaInicial.getFila()-1==casillaFinal.getFila()&&
                                         casillaInicial.getColumna()-1==casillaFinal.getColumna())){
+                                         inicio=false; 
                                           comer(casillaInicial,casillaFinal); 
                                        }
                                  }
