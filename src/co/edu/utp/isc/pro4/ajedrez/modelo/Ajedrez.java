@@ -22,6 +22,7 @@ public class Ajedrez {
     private Cronometro cronometro;
     private int turno;
     private boolean terminado;
+    private boolean terminadoPorJaque;
     
     //Constructores
     public Ajedrez() {
@@ -30,6 +31,7 @@ public class Ajedrez {
         cronometro = new Cronometro();
         turno = 0;
         terminado = false;
+        terminadoPorJaque=false;
     }
 
     public Ajedrez(Jugador jugador1, Jugador jugador2) {
@@ -239,7 +241,8 @@ public class Ajedrez {
         } 
         return validarJaqueMate;
     }
-
+    
+   
     private boolean validarTablas(Color jugador, Color contrincante) {
         //se evalua si el juego ha quedado en tablas (solamente reyes, o reyes y un alfil o un caballo)
         //se evaluan cuales son los aliados
@@ -253,7 +256,7 @@ public class Ajedrez {
             i++;
         }
         i=0;//variable temporal
-        while(i<aliados.length&&aliados[i]!=null){
+        while(i<enemigos.length&&enemigos[i]!=null){
             numeroContrincante++;
             i++;
         }
@@ -267,6 +270,7 @@ public class Ajedrez {
                     }
                     contador++;
                 }
+                System.out.println("tablar porque se quedo solo con el rey y otra ficha (contrincante)");
                 return true;
             }else{
                if(numeroAliados!=1&&numeroContrincante==1){
@@ -277,18 +281,21 @@ public class Ajedrez {
                     }
                     contador++;
                 }
+                  System.out.println("tablas porque se quedo solo con el rey y otra ficha (aliado)");
                 return true; 
                } 
             }
             if(numeroAliados==1&&numeroContrincante==1){
+                System.out.println("solo reyes");
                 return true;
             }
           
         return false;
     }
 
-    public void rendirse() {
+    public boolean rendirse() {
         terminado = true;
+        return terminado;
     }
     
     public boolean estadoDelJuego(){
@@ -298,6 +305,11 @@ public class Ajedrez {
         }else{
             return true;
         }
+    }
+    
+    public boolean terminadoJaque(){
+        //evalua si el juego termino por jaque
+        return terminadoPorJaque;
     }
 
     private void ubicarFichasTablero() {
@@ -407,12 +419,12 @@ public class Ajedrez {
                 Ficha ficha = casillaInicial.getFicha();
                 boolean validarMovimiento = ficha.mover(casillaInicial, casillaFinal, camino, jugadores[turno].getColor());
                 mostrarTablero();
-                int contrincante=(turno == 0 ? 1 : 0);
+                int contrincante=(turno == 0 ? 1 : 0);  
                 if (validarTablas(jugadores[turno].getColor(),jugadores[contrincante].getColor())) {
                     //se verifica que no haya quedado en tablas el juego
                     System.out.println("el juego quedo en tablas");
                     terminado = true;
-                }   
+                }
                 Casilla fichasContrario[] = tablero.buscarJaque(jugadores[contrincante].getColor());
                 Casilla jaqueContrario[] = verificarJaque(fichasContrario,tablero.buscarRey(jugadores[contrincante].getColor()),copia);
                 i = 0;//variable temporal
@@ -432,6 +444,7 @@ public class Ajedrez {
                     if (validarJaqueMate(fichasContrarioDefensa,jaqueContrarioCopia,copia.buscarRey(jugadores[contrincante].getColor()),copia)) {
                         System.out.println("el jugador "+jugadores[turno].getColor()+" le hizo jaque a "+jugadores[contrincante].getColor()+" y este no se puedo mover" );
                         terminado = true;
+                        terminadoPorJaque=true;
                     }else{
                         System.out.println("el jugador "+jugadores[contrincante].getColor()+" ha evitado el jaque");    
                     }

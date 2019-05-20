@@ -481,7 +481,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
             txtMovimientos.setText(txtMovimientos.getText()+"\n"+txtInicio.getText()+" "+txtFin.getText());  
             juego.getJugador().jugar(posicionInicial, posicionFinal);
         }
-        if(!juego.estadoDelJuego()){
+        if(!juego.estadoDelJuego()&&juego.terminadoJaque()){
             TxtPerdio.setText( juego.getJugador().getNombre() );
             TxtGano.setText( juego.getJugadorContrario().getNombre() ); 
         }
@@ -498,11 +498,11 @@ public class FrmAjedrez extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if (juego != null) {
+        if (juego != null&&juego.estadoDelJuego()) {
             juego.rendirse();
          
         }
-        if(!juego.estadoDelJuego()){
+        if(!juego.estadoDelJuego()&&!juego.rendirse()){
             TxtPerdio.setText( juego.getJugador().getNombre() );
             TxtGano.setText( juego.getJugadorContrario().getNombre() );
         }
