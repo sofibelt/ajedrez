@@ -128,13 +128,12 @@ public class Tablero {
             }  
         return casilla;
     }
-    public Casilla[] buscarTorre(Color color) {
-        Casilla casilla[]=new Casilla[2];
+    public Casilla[] buscarPeon() {
+        Casilla casilla[]=new Casilla[16];
         int a=0;
          for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    if (getCasilla(i, j).getFicha() instanceof Torre
-                            && getCasilla(i, j).getFicha().getColor() == color) {
+                    if (getCasilla(i, j).getFicha() instanceof Peon){
                         casilla[a] = getCasilla(i, j);
                         a++;
                     }
@@ -215,5 +214,30 @@ public class Tablero {
         }
     return casillas;
     } 
+    
+    public void ascensionPeon(String ficha,Casilla casilla,Color color,Ficha fichaAntigua){
+        if(ficha=="reina"){
+            Ficha reina = new Reina(color);
+            reina.setCasilla(casilla);
+            casilla.setFicha(reina); 
+            fichaAntigua.setCasilla(null);
+        }else if(ficha=="alfil"){
+            Ficha alfil = new Alfil(color);
+            alfil.setCasilla(casilla);
+            casilla.setFicha(alfil); 
+            fichaAntigua.setCasilla(null);
+        }else if(ficha=="torre"){
+            Ficha torre = new Torre(color);
+            torre.setCasilla(casilla);
+            casilla.setFicha(torre); 
+            fichaAntigua.setCasilla(null);
+        }else if(ficha=="caballo"){
+            Ficha caballo = new Caballo(color);
+            caballo.setCasilla(casilla);
+            casilla.setFicha(caballo); 
+            fichaAntigua.setCasilla(null);
+        }
+        System.out.println("va a cambiar por: "+ficha);
+    }
 
 }

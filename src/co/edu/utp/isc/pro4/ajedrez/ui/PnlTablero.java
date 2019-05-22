@@ -21,6 +21,16 @@ public class PnlTablero extends JPanel {
     public void setTablero(Tablero tablero) {
         this.tablero = tablero;
     }
+    
+    public String obtenerCasilla(){
+        ascensionPeonjdialog dialog = new ascensionPeonjdialog(new javax.swing.JFrame(), true);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+        if(dialog.getCasilla()!=null){
+            System.out.printf("la casilla seleccionada es ",dialog.getCasilla());
+        }
+        return dialog.getCasilla();
+    }
 
     @Override
     public void paint(Graphics g) {

@@ -418,8 +418,9 @@ public class Ajedrez {
                 Casilla camino[] = tablero.getCamino(casillaInicial, casillaFinal);
                 Ficha ficha = casillaInicial.getFicha();
                 boolean validarMovimiento = ficha.mover(casillaInicial, casillaFinal, camino, jugadores[turno].getColor());
+                ascensionPeon();
                 mostrarTablero();
-                int contrincante=(turno == 0 ? 1 : 0);  
+                int contrincante=(turno == 0 ? 1 : 0); 
                 if (validarTablas(jugadores[turno].getColor(),jugadores[contrincante].getColor())) {
                     //se verifica que no haya quedado en tablas el juego
                     System.out.println("el juego quedo en tablas");
@@ -469,6 +470,9 @@ public class Ajedrez {
         Tablero copia = tablero.duplicarTablero();
         //se busca al rey en la copia
         Casilla rey=copia.buscarRey(color);
+        //se crea una ficha rey para la validacion
+        Rey reyFicha = (Rey)rey.getFicha();
+        boolean estadoRey= reyFicha.getEstado();
         //se busca a la torre cercana
         Casilla torreCercana=null;
         if(color==Color.BLANCO){
@@ -478,65 +482,69 @@ public class Ajedrez {
         }
         
         //se evalua que el rey y la torre no hayan sido movidos antes
-        if((rey==copia.getCasilla("E1")||rey==copia.getCasilla("E8"))&&
-            (torreCercana.getFicha()!=null&&torreCercana.getFicha() instanceof Torre)){
-            //se evalua que el rey no quede en jaque en alguno de los movimientos del enroque
-                Casilla casillas[]=copia.getCamino(torreCercana,rey);
-                Casilla enemigos[]=copia.buscarJaque(color);
-                boolean enJaque=false;
-                int i=0,j=0,libre=0;//variables temporales
-                while(j<casillas.length&&casillas[j]!=null){
-                    if(!casillas[j].isOcupada()){
-                        Casilla jaque[]= verificarJaque(enemigos,casillas[j],copia);
-                        while(i<jaque.length&&jaque[i]!=null){
-                            System.out.println("pieza que le queda haciendo jaque: "+jaque[i]);
-                            enJaque=true;
-                            i++;
+        if(estadoRey&&torreCercana.getFicha()!=null){
+                Torre torreFicha=(Torre)torreCercana.getFicha();
+                boolean estadoTorre=torreFicha.getEstado();
+                if(estadoTorre&&torreCercana.getFicha() instanceof Torre){
+                    //se evalua que el rey no quede en jaque en alguno de los movimientos del enroque
+                        Casilla casillas[]=copia.getCamino(torreCercana,rey);
+                        Casilla enemigos[]=copia.buscarJaque(color);
+                        boolean enJaque=false;
+                        int i=0,j=0,libre=0;//variables temporales
+                        while(j<casillas.length&&casillas[j]!=null){
+                            if(!casillas[j].isOcupada()){
+                                Casilla jaque[]= verificarJaque(enemigos,casillas[j],copia);
+                                while(i<jaque.length&&jaque[i]!=null){
+                                    System.out.println("pieza que le queda haciendo jaque: "+jaque[i]);
+                                    enJaque=true;
+                                    i++;
+                                }
+                            }else{
+                                System.out.println("pieza estorbando: "+casillas[j]);
+                                enJaque=true;
+                                break;
+                            }
+                        j++;
                         }
+                        if(!enJaque){
+                            //si no se genera jaque se procede a mover al rey y a la torre
+                            if(color==Color.BLANCO){
+                                Casilla movimiento= tablero.getCasilla("G1");
+                                Casilla casillaInicial = tablero.buscarRey(color);
+                                casillaInicial.getFicha().setCasilla(movimiento); 
+                                movimiento.setFicha(casillaInicial.getFicha());
+                                Ficha ficha=null;
+                                casillaInicial.setFicha(ficha); 
+                            }else{
+                                Casilla movimiento= tablero.getCasilla("G8");
+                                Casilla casillaInicial = tablero.buscarRey(color);
+                                casillaInicial.getFicha().setCasilla(movimiento); 
+                                movimiento.setFicha(casillaInicial.getFicha());
+                                Ficha ficha=null;
+                                casillaInicial.setFicha(ficha); 
+                            }
+                            if(color==Color.BLANCO){
+                                Casilla movimiento= tablero.getCasilla("F1");
+                                Casilla casillaInicial = tablero.getCasilla((char)(torreCercana.getColumna())+Integer.toString(torreCercana.getFila()));
+                                casillaInicial.getFicha().setCasilla(movimiento); 
+                                movimiento.setFicha(casillaInicial.getFicha());
+                                Ficha ficha=null;
+                                casillaInicial.setFicha(ficha); 
+                            }else{
+                                Casilla movimiento= tablero.getCasilla("F8");
+                                Casilla casillaInicial = tablero.getCasilla((char)(torreCercana.getColumna())+Integer.toString(torreCercana.getFila()));
+                                casillaInicial.getFicha().setCasilla(movimiento); 
+                                movimiento.setFicha(casillaInicial.getFicha());
+                                Ficha ficha=null;
+                                casillaInicial.setFicha(ficha); 
+                            }
+                            cambioTurno();
                     }else{
-                        System.out.println("pieza estorbando: "+casillas[j]);
-                        enJaque=true;
-                        break;
+                        System.out.println("no se puede hacer el enroque");
                     }
-                j++;
+            }else{
+                    System.out.println("las fichas no estan en sus posiciones iniciales");
                 }
-                if(!enJaque){
-                    //si no se genera jaque se procede a mover al rey y a la torre
-                    if(color==Color.BLANCO){
-                        Casilla movimiento= tablero.getCasilla("G1");
-                        Casilla casillaInicial = tablero.buscarRey(color);
-                        casillaInicial.getFicha().setCasilla(movimiento); 
-                        movimiento.setFicha(casillaInicial.getFicha());
-                        Ficha ficha=null;
-                        casillaInicial.setFicha(ficha); 
-                    }else{
-                        Casilla movimiento= tablero.getCasilla("G8");
-                        Casilla casillaInicial = tablero.buscarRey(color);
-                        casillaInicial.getFicha().setCasilla(movimiento); 
-                        movimiento.setFicha(casillaInicial.getFicha());
-                        Ficha ficha=null;
-                        casillaInicial.setFicha(ficha); 
-                    }
-                    if(color==Color.BLANCO){
-                        Casilla movimiento= tablero.getCasilla("F1");
-                        Casilla casillaInicial = tablero.getCasilla((char)(torreCercana.getColumna())+Integer.toString(torreCercana.getFila()));
-                        casillaInicial.getFicha().setCasilla(movimiento); 
-                        movimiento.setFicha(casillaInicial.getFicha());
-                        Ficha ficha=null;
-                        casillaInicial.setFicha(ficha); 
-                    }else{
-                        Casilla movimiento= tablero.getCasilla("F8");
-                        Casilla casillaInicial = tablero.getCasilla((char)(torreCercana.getColumna())+Integer.toString(torreCercana.getFila()));
-                        casillaInicial.getFicha().setCasilla(movimiento); 
-                        movimiento.setFicha(casillaInicial.getFicha());
-                        Ficha ficha=null;
-                        casillaInicial.setFicha(ficha); 
-                    }
-                    cambioTurno();
-                }else{
-                    System.out.println("no se puede hacer el enroque");
-                }
- 
         }else{
             System.out.println("las fichas no estan en sus posiciones iniciales");
         }
@@ -546,75 +554,98 @@ public class Ajedrez {
     public void realizarEnroqueLargo(Color color){
         //enroque largo, el mismo procedimiento que el enroque corto, solo que con la torre contraria
         Tablero copia = tablero.duplicarTablero();
+        //se busca al rey en la copia
         Casilla rey=copia.buscarRey(color);
+        //se crea una ficha rey para la validacion
+        Rey reyFicha = (Rey)rey.getFicha();
+        boolean estadoRey= reyFicha.getEstado();
         Casilla torreLejos=null;;
         if(color==Color.BLANCO){
             torreLejos=copia.getCasilla("A1");
         }else{
             torreLejos=copia.getCasilla("A8");
         }
-        if((rey==copia.getCasilla("E1")||rey==copia.getCasilla("E8"))&&
-            (torreLejos.getFicha()!=null&&torreLejos.getFicha() instanceof Torre)){
-                Casilla casillas[]=copia.getCamino(torreLejos,rey);
-                Casilla enemigos[]=copia.buscarJaque(color);
-                boolean enJaque=false;
-                int i=0,j=0,libre=0;
-                while(j<casillas.length&&casillas[j]!=null){
-                    if(!casillas[j].isOcupada()){
-                        Casilla jaque[]= verificarJaque(enemigos,casillas[j],copia);
-                        while(i<jaque.length&&jaque[i]!=null){
-                            System.out.println("pieza que le queda haciendo jaque: "+jaque[i]);
+        if(estadoRey&&torreLejos.getFicha()!=null){
+            Torre torreFicha=(Torre)torreLejos.getFicha();
+            boolean estadoTorre=torreFicha.getEstado();
+            if(estadoTorre&&torreLejos.getFicha() instanceof Torre){
+                    Casilla casillas[]=copia.getCamino(torreLejos,rey);
+                    Casilla enemigos[]=copia.buscarJaque(color);
+                    boolean enJaque=false;
+                    int i=0,j=0,libre=0;
+                    while(j<casillas.length&&casillas[j]!=null){
+                        if(!casillas[j].isOcupada()){
+                            Casilla jaque[]= verificarJaque(enemigos,casillas[j],copia);
+                            while(i<jaque.length&&jaque[i]!=null){
+                                System.out.println("pieza que le queda haciendo jaque: "+jaque[i]);
+                                enJaque=true;
+                                i++;
+                            }
+                        }else{
+                            System.out.println("pieza estorbando: "+casillas[j]);
                             enJaque=true;
-                            i++;
+                            break;
                         }
-                    }else{
-                        System.out.println("pieza estorbando: "+casillas[j]);
-                        enJaque=true;
-                        break;
+                    j++;
                     }
-                j++;
-                }
-                if(!enJaque){
-                    if(color==Color.BLANCO){
-                        Casilla movimiento= tablero.getCasilla("C1");
-                        Casilla casillaInicial = tablero.buscarRey(color);
-                        casillaInicial.getFicha().setCasilla(movimiento); 
-                        movimiento.setFicha(casillaInicial.getFicha());
-                        Ficha ficha=null;
-                        casillaInicial.setFicha(ficha);   
+                    if(!enJaque){
+                        if(color==Color.BLANCO){
+                            Casilla movimiento= tablero.getCasilla("C1");
+                            Casilla casillaInicial = tablero.buscarRey(color);
+                            casillaInicial.getFicha().setCasilla(movimiento); 
+                            movimiento.setFicha(casillaInicial.getFicha());
+                            Ficha ficha=null;
+                            casillaInicial.setFicha(ficha);   
+                        }else{
+                            Casilla movimiento= tablero.getCasilla("C8");
+                            Casilla casillaInicial = tablero.buscarRey(color);
+                            casillaInicial.getFicha().setCasilla(movimiento); 
+                            movimiento.setFicha(casillaInicial.getFicha());
+                            Ficha ficha=null;
+                            casillaInicial.setFicha(ficha); 
+                        }
+                        if(color==Color.BLANCO){
+                            Casilla movimiento= tablero.getCasilla("D1");
+                            Casilla casillaInicial = tablero.getCasilla((char)(torreLejos.getColumna())+Integer.toString(torreLejos.getFila()));
+                            casillaInicial.getFicha().setCasilla(movimiento); 
+                            movimiento.setFicha(casillaInicial.getFicha());
+                            Ficha ficha=null;
+                            casillaInicial.setFicha(ficha); 
+                        }else{
+                            Casilla movimiento= tablero.getCasilla("D8");
+                            Casilla casillaInicial = tablero.getCasilla((char)(torreLejos.getColumna())+Integer.toString(torreLejos.getFila()));
+                            casillaInicial.getFicha().setCasilla(movimiento); 
+                            movimiento.setFicha(casillaInicial.getFicha());
+                            Ficha ficha=null;
+                            casillaInicial.setFicha(ficha); 
+                        }
+                        cambioTurno();
                     }else{
-                        Casilla movimiento= tablero.getCasilla("C8");
-                        Casilla casillaInicial = tablero.buscarRey(color);
-                        casillaInicial.getFicha().setCasilla(movimiento); 
-                        movimiento.setFicha(casillaInicial.getFicha());
-                        Ficha ficha=null;
-                        casillaInicial.setFicha(ficha); 
+                        System.out.println("no se puede hacer el enroque");
                     }
-                    if(color==Color.BLANCO){
-                        Casilla movimiento= tablero.getCasilla("D1");
-                        Casilla casillaInicial = tablero.getCasilla((char)(torreLejos.getColumna())+Integer.toString(torreLejos.getFila()));
-                        casillaInicial.getFicha().setCasilla(movimiento); 
-                        movimiento.setFicha(casillaInicial.getFicha());
-                        Ficha ficha=null;
-                        casillaInicial.setFicha(ficha); 
-                    }else{
-                        Casilla movimiento= tablero.getCasilla("D8");
-                        Casilla casillaInicial = tablero.getCasilla((char)(torreLejos.getColumna())+Integer.toString(torreLejos.getFila()));
-                        casillaInicial.getFicha().setCasilla(movimiento); 
-                        movimiento.setFicha(casillaInicial.getFicha());
-                        Ficha ficha=null;
-                        casillaInicial.setFicha(ficha); 
-                    }
-                    cambioTurno();
-                }else{
-                    System.out.println("no se puede hacer el enroque");
-                }
-                mostrarTablero();
-                copia.mostrarTablero();
+                    mostrarTablero();
+                    copia.mostrarTablero();
+            }else{
+                System.out.println("las fichas no estan en sus posiciones iniciales");
+            }
         }else{
             System.out.println("las fichas no estan en sus posiciones iniciales");
         }
         mostrarTablero();
+    }
+    
+    public void ascensionPeon(){
+        Casilla casillas[]=tablero.buscarPeon();
+        int i=0;
+        while(i<casillas.length&&casillas[i]!=null){
+            if((casillas[i].getFicha().getColor()==Color.BLANCO&&casillas[i].getFila()==8)||
+               (casillas[i].getFicha().getColor()==Color.NEGRO&&casillas[i].getFila()==1)){
+                String nuevaFicha=pnlTablero.obtenerCasilla();
+                tablero.ascensionPeon(nuevaFicha,casillas[i],jugadores[turno].getColor(),casillas[i].getFicha());
+                
+            }
+            i++;
+        }
     }
 
 }

@@ -20,6 +20,7 @@ public class Peon extends Ficha {
     
     //Variable
     private boolean inicio;
+    String ascension;
     
     //Constructor
     public Peon(Color color) {
@@ -199,4 +200,6 @@ public class Peon extends Ficha {
             
      return validarMovimiento; 
     }
+       
+    
 }

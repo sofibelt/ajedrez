@@ -16,9 +16,13 @@ public class Torre extends Ficha {
 /** lo que se pretende es simular todas las opciones que nos daria el juego real, 
  *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
     
+    //Variables
+    boolean inicio;//variable que verifica si la torre ya ha sido movida
+    
     //Constructor
     public Torre(Color color) {
         super(color);
+        inicio=true;
     }
     
     //Metodos, en general heredados
@@ -104,6 +108,7 @@ public class Torre extends Ficha {
     @Override
     public Ficha duplicar() {
        Torre nuevoTorre = new Torre(color);
+       nuevoTorre.inicio=inicio;
         return nuevoTorre;
     }
 
@@ -136,5 +141,7 @@ public class Torre extends Ficha {
         return validarMovimiento;
     }
     
-    
+    public boolean getEstado(){
+        return inicio;
+    }
 }

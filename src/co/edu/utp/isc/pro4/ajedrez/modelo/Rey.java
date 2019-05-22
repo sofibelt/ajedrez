@@ -18,10 +18,12 @@ public class Rey extends Ficha {
 /** lo que se pretende es simular todas las opciones que nos daria el juego real, 
  *  permitiendole al jugador hacer todo lo que se podria en un ajedrez normal*/
     
+    //Variables
+    boolean inicio;//variable que verifica si el rey se ha movido
     //Constructores
     public Rey(Color color) {
         super(color);
-        
+        inicio=true;
     }
     
     //Metodos, en general heredados
@@ -39,13 +41,13 @@ public class Rey extends Ficha {
          if(casillaInicial.getFicha().getColor().equals(color)){
              if(casillaFinal.isOcupada()){
                   if(casillaFinal.getFicha().getColor()!=color){
-                      
+                      inicio=false;
                       comer(casillaInicial,casillaFinal);
                   }
              }else{
                  setCasilla(casillaFinal); 
                  casillaFinal.setFicha(this);
-                 
+                 inicio=false;
              }
          }
      }else{
@@ -109,6 +111,7 @@ public class Rey extends Ficha {
     @Override
     public Ficha duplicar() {
        Rey nuevoRey = new Rey(color);
+       nuevoRey.inicio=inicio;
         return nuevoRey;
     }
 
@@ -136,5 +139,7 @@ public class Rey extends Ficha {
      return validarMovimiento;  
     }
 
-
+    public boolean getEstado(){
+        return inicio;
+    }
 }
