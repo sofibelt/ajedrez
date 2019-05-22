@@ -21,11 +21,13 @@ public class Peon extends Ficha {
     //Variable
     private boolean inicio;
     String ascension;
+    int movimientos;
     
     //Constructor
     public Peon(Color color) {
         super(color);
         inicio=true;
+        movimientos=0;
     }
     
     //Metodos en general heredados
@@ -48,6 +50,11 @@ public class Peon extends Ficha {
                     (casillaInicial.getFila()-2==casillaFinal.getFila()))&&(!casillaFinal.isOcupada()&&
                     (casillaInicial.getFicha().getColor()==Color.NEGRO))    
                     ){
+                    if(casillaInicial.getFila()+1==casillaFinal.getFila()||casillaInicial.getFila()-1==casillaFinal.getFila()){
+                        movimientos=1;
+                    }else{
+                        movimientos=2;
+                    }
                     if(casillaInicial.getFicha().getColor().equals(color)){
                             int i=0,libre=0;
                            while((i<camino.length)&&(camino[i]!=null)){   
@@ -138,6 +145,7 @@ public class Peon extends Ficha {
     public Ficha duplicar() {
         Peon nuevoPeon = new Peon(color);
         nuevoPeon.inicio=inicio;
+        nuevoPeon.movimientos=movimientos;
         return nuevoPeon;
     }
 
@@ -201,5 +209,7 @@ public class Peon extends Ficha {
      return validarMovimiento; 
     }
        
-    
+    public int getMovimientos(){
+        return movimientos;
+    }
 }

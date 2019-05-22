@@ -392,6 +392,8 @@ public class Ajedrez {
                 //se mueve la variable copia
                 fichaCopia.mover(copia.getCasilla(primeraPosicion), copia.getCasilla(segundaPosicion),
                         caminoCopia, jugadores[turno].getColor());
+                //si no se puede mover, se verifica que no se este haciendo un comer al paso
+                verificacionComerAlPaso(copia.getCasilla(primeraPosicion), copia.getCasilla(segundaPosicion),copia);
                 copia.mostrarTablero();
                 //se hace el procedimiento para buscar jaque en esta nueva posicion
                 Casilla fichas[] = copia.buscarJaque(jugadores[turno].getColor());
@@ -418,6 +420,7 @@ public class Ajedrez {
                 Casilla camino[] = tablero.getCamino(casillaInicial, casillaFinal);
                 Ficha ficha = casillaInicial.getFicha();
                 boolean validarMovimiento = ficha.mover(casillaInicial, casillaFinal, camino, jugadores[turno].getColor());
+                verificacionComerAlPaso(casillaInicial,casillaFinal,tablero);
                 ascensionPeon();
                 mostrarTablero();
                 int contrincante=(turno == 0 ? 1 : 0); 
@@ -646,6 +649,44 @@ public class Ajedrez {
             }
             i++;
         }
+    }
+    
+    public boolean verificacionComerAlPaso(Casilla casillaInicial, Casilla casillaFinal,Tablero copia){
+        boolean validarMovimiento=false;
+        if(casillaInicial.getFicha() instanceof Peon&&!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)&&
+           ((casillaInicial.getFila()+1==casillaFinal.getFila()&&casillaInicial.getColumna()-1==casillaFinal.getColumna())||
+           (casillaInicial.getFila()+1==casillaFinal.getFila()&&casillaInicial.getColumna()+1==casillaFinal.getColumna()))&&
+            copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()-1)).getFicha()instanceof Peon&&
+            copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()-1)).getFicha().getColor()!=jugadores[turno].getColor()){
+                Peon peonFicha=(Peon)copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()-1)).getFicha();
+                int movimientos=peonFicha.getMovimientos();
+                if(movimientos==2){
+                    casillaInicial.getFicha().setCasilla(casillaFinal);
+                    copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()-1)).getFicha().setCasilla(null);
+                    copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()-1)).setFicha(null);
+                    casillaFinal.setFicha( casillaInicial.getFicha());
+                    casillaInicial.setFicha(null); 
+                    validarMovimiento=true;
+                }
+        }else{
+            if(casillaInicial.getFicha() instanceof Peon&&!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.NEGRO)&&
+           ((casillaInicial.getFila()-1==casillaFinal.getFila()&&casillaInicial.getColumna()+1==casillaFinal.getColumna())||
+           (casillaInicial.getFila()-1==casillaFinal.getFila()&&casillaInicial.getColumna()-1==casillaFinal.getColumna()))&&
+            copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()+1)).getFicha()instanceof Peon&&
+            copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()+1)).getFicha().getColor()!=jugadores[turno].getColor()){
+                Peon peonFicha=(Peon)copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()+1)).getFicha();
+                int movimientos=peonFicha.getMovimientos();
+                if(movimientos==2){
+                    casillaInicial.getFicha().setCasilla(casillaFinal);
+                    copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()+1)).getFicha().setCasilla(null);
+                    copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()+1)).setFicha(null);
+                    casillaFinal.setFicha( casillaInicial.getFicha());
+                    casillaInicial.setFicha(null); 
+                    validarMovimiento=true;
+                }
+            }
+        }
+        return validarMovimiento;
     }
 
 }
