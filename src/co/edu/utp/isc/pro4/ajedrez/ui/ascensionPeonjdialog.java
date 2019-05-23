@@ -1,15 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * ascensionPeonjdialog.java
+ * 
+ * Mayo 2019
+ * 
+ * realizado por Ana Sofia Beltran Rios 1004716847
+ * @author utp: odau
  */
 package co.edu.utp.isc.pro4.ajedrez.ui;
 
-/**
- *
- * @author Ana
- */
+/** clase ascensionPeonjdialog, cuya funcion es manejar la visualizacion de la casilla para elegir la ascension del peon */
 public class ascensionPeonjdialog extends javax.swing.JDialog {
+    
+    //Variable
     String casilla;
     /**
      * Creates new form ascensionPeonjdialog

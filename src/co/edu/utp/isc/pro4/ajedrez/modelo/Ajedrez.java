@@ -638,8 +638,9 @@ public class Ajedrez {
     }
     
     public void ascensionPeon(){
+        //se procede a evaluar en que casilla esta el peon, y si puede ascender o no
         Casilla casillas[]=tablero.buscarPeon();
-        int i=0;
+        int i=0;//variable temporal
         while(i<casillas.length&&casillas[i]!=null){
             if((casillas[i].getFicha().getColor()==Color.BLANCO&&casillas[i].getFila()==8)||
                (casillas[i].getFicha().getColor()==Color.NEGRO&&casillas[i].getFila()==1)){
@@ -652,6 +653,7 @@ public class Ajedrez {
     }
     
     public boolean verificacionComerAlPaso(Casilla casillaInicial, Casilla casillaFinal,Tablero copia){
+        //se procede a evaluar si se cumplen todas las condiciones para comer al paso
         boolean validarMovimiento=false;
         if(casillaInicial.getFicha() instanceof Peon&&!casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor()==Color.BLANCO)&&
            ((casillaInicial.getFila()+1==casillaFinal.getFila()&&casillaInicial.getColumna()-1==casillaFinal.getColumna())||
