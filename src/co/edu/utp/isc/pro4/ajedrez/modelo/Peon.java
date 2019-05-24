@@ -83,7 +83,7 @@ public class Peon extends Ficha {
                         }else if(casillaFinal.isOcupada()&&(casillaInicial.getFicha().getColor().equals(color))
                                 &&(casillaFinal.getFicha().getColor()!=color)
                                 ){
-                            
+                                    System.out.println("valido comer");
                                   if(casillaInicial.getFicha().getColor()==Color.BLANCO){
                                     if((casillaInicial.getFila()+1==casillaFinal.getFila()&&
                                         casillaInicial.getColumna()-1==casillaFinal.getColumna())||
@@ -93,6 +93,7 @@ public class Peon extends Ficha {
                                            comer(casillaInicial,casillaFinal); 
                                        }  
                                  }else{
+                                      System.out.println("intento comer");
                                      if((casillaInicial.getFila()-1==casillaFinal.getFila()&&
                                         casillaInicial.getColumna()+1==casillaFinal.getColumna())||
                                        (casillaInicial.getFila()-1==casillaFinal.getFila()&&
@@ -103,6 +104,12 @@ public class Peon extends Ficha {
                                  }
                                   
                                 }else{
+                                    if(casillaFinal.isOcupada()){
+                                       System.out.println(casillaFinal.isOcupada()); 
+                                       System.out.println(casillaInicial.getFicha().getColor().equals(color)); 
+                                       System.out.println(casillaFinal.getFicha().getColor()!=color);
+                                    }
+                                    
                                     System.out.println("no se pudo mover");
                                     System.out.println("casilla de donde intento moverse: "+casillaInicial.getColumna()+casillaInicial.getFila());
                                     System.out.println("casilla a donde intento moverse: "+casillaFinal.getColumna()+casillaFinal.getFila());

@@ -420,7 +420,9 @@ public class Ajedrez {
                 Casilla camino[] = tablero.getCamino(casillaInicial, casillaFinal);
                 Ficha ficha = casillaInicial.getFicha();
                 boolean validarMovimiento = ficha.mover(casillaInicial, casillaFinal, camino, jugadores[turno].getColor());
-                verificacionComerAlPaso(casillaInicial,casillaFinal,tablero);
+                if(casillaInicial.getFicha()instanceof Peon&&!validarMovimiento){
+                 validarMovimiento=verificacionComerAlPaso(casillaInicial,casillaFinal,tablero);
+                }
                 ascensionPeon();
                 mostrarTablero();
                 int contrincante=(turno == 0 ? 1 : 0); 
@@ -663,10 +665,10 @@ public class Ajedrez {
                 Peon peonFicha=(Peon)copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()-1)).getFicha();
                 int movimientos=peonFicha.getMovimientos();
                 if(movimientos==2){
-                    casillaInicial.getFicha().setCasilla(casillaFinal);
+                    casillaFinal.setFicha( casillaInicial.getFicha());
+                    casillaFinal.getFicha().setCasilla(casillaFinal);
                     copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()-1)).getFicha().setCasilla(null);
                     copia.getCasilla((char)(casillaFinal.getColumna())+Integer.toString(casillaFinal.getFila()-1)).setFicha(null);
-                    casillaFinal.setFicha( casillaInicial.getFicha());
                     casillaInicial.setFicha(null); 
                     validarMovimiento=true;
                 }

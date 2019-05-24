@@ -43,11 +43,13 @@ public class Torre extends Ficha {
                 if(casillaFinal.isOcupada()){
                     if(casillaFinal.getFicha().getColor()!=color){
                             if(libre==i){ 
+                                inicio=false;
                                 comer(casillaInicial,casillaFinal);
                             }
                         }
                 }else{
                     if(libre==i){
+                            inicio=false;
                            setCasilla(casillaFinal); 
                            casillaFinal.setFicha(this);
                        }
