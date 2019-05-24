@@ -332,8 +332,8 @@ public class Ajedrez {
         asociarFichaTablero(tablero.getCasilla("H8"), new Torre(Color.NEGRO));
 
         for (int i = 0; i < 8; i++) {
-            asociarFichaTablero(tablero.getCasilla(1, i), new Peon(Color.BLANCO));
-            asociarFichaTablero(tablero.getCasilla(6, i), new Peon(Color.NEGRO));
+            asociarFichaTablero(tablero.getCasilla(6, i), new Peon(Color.BLANCO));
+            asociarFichaTablero(tablero.getCasilla(1, i), new Peon(Color.NEGRO));
         }
 
     }

@@ -434,11 +434,11 @@ public class FrmAjedrez extends javax.swing.JFrame {
     private void pnlTableroMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlTableroMouseReleased
         // TODO add your handling code here:
         if (juego != null) {
-//            System.out.print(evt.getX() + ", " + evt.getY() + " = ");
+            //System.out.print(evt.getX() + ", " + evt.getY() + " = ");
             int col = 1 + evt.getX() / 50;
-            int row = 1 + evt.getY() / 50;
-//            System.out.print(col + ", " + row + " = ");
-            System.out.println((char) ('A' + col - 1) + Integer.toString(row));
+            int row = -(evt.getY() / 50)-(1-450 / 50);
+            //System.out.print(col + ", " + row + " = ");
+            //System.out.println((char) ('A' + col - 1) + Integer.toString(row));
             if (jugadaInicial) {
                 txtInicio.setText((char) ('A' + col - 1) + Integer.toString(row));
                 
@@ -460,7 +460,7 @@ public class FrmAjedrez extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (juego != null) {
             int col = 1 + evt.getX() / 50;
-            int row = 1 + evt.getY() / 50;
+            int row = -(evt.getY() / 50)-(1-450 / 50);
             pnlTablero.setToolTipText((char) ('A' + col - 1) + Integer.toString(row));
         }
     }//GEN-LAST:event_pnlTableroMouseMoved

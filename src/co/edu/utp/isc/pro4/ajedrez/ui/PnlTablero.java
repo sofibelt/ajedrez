@@ -40,7 +40,7 @@ public class PnlTablero extends JPanel {
             return;
         }
         Graphics2D g2 = (Graphics2D) g;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i <8; i++) {
             for (int j = 0; j < 8; j++) {
                 tablero.getCasilla(i, j)
                         .draw(g2, j * 50, i * 50);

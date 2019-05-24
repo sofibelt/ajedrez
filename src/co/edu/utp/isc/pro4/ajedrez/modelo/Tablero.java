@@ -19,12 +19,13 @@ public class Tablero {
     //Constructor
     public Tablero() {
         casillas = new Casilla[8][];
-        for (int i = 0; i < 8; i++) {
+        int a=0,b=7;
+        for (int i = 7; i > -1; i--) {
             casillas[i] = new Casilla[8];
-            for (int j = 0; j < 8; j++) {
+            for (int j = 0; j <8; j++) {
                 casillas[i][j] = new Casilla(
-                        (i + j) % 2 == 0 ? Color.NEGRO : Color.BLANCO,
-                        i + 1,
+                        (i + j) % 2 == 0 ? Color.BLANCO : Color.NEGRO,
+                        8-i,
                         (char) ('A' + j));
             }
         }
@@ -37,7 +38,7 @@ public class Tablero {
 
     public Casilla getCasilla(String posicion) {
         int columna = posicion.charAt(0) - 'A';
-        int fila = Integer.valueOf(posicion.substring(1)) - 1;
+        int fila = -Integer.valueOf(posicion.substring(1))+8;
         return getCasilla(fila, columna);
     }
 
